@@ -304,10 +304,10 @@ into K-tuple order, `min_expert=0, max_expert=128`, SwiGLU-OAI clamped at 7.0.
 |---|---|---|---|---|---|---|---|
 | 1 | indep | 4 | 54.2 | 302 | 188 | 233 | 77% |
 | 4 | indep | 15 | 207.8 | 1,082 | 201 | 893 | 83% |
-| 4 | corr0.5 | 9 | 122.0 | 683 | 185 | 524 | 77% |
+| 4 | corr0.5 | 9 | 122.0 | 851 | 150 | 524 | 62% |
 | 4 | hot4 | 4 | 54.2 | 347 | 164 | 233 | 67% |
 | 8 | indep | 27 | 374.9 | 1,788 | 220 | 1,612 | 90% |
-| 16 | indep | 52 | 718.2 | 3,569 | 211 | 3,088 | 93% |
+| 16 | indep | 52 | 718.2 | 3,569 | 211 | 3,088 | 87% |
 | 24 | indep | 69 | 962.1 | 4,468 | 226 | 4,136 | 93% |
 | 32 | indep | 81 | 1,118.0 | 5,435 | 216 | 4,807 | 88% |
 
@@ -316,11 +316,28 @@ trellis: **rel L2 = 8.6-8.8e-4 for every family at rows 1, 2, 4 and 8**, i.e. th
 path is where the recipe says it is (patches/0011 quotes 6.4-6.5e-4 against an fp32
 reference; this reference is itself fp16-accumulating, so 8.7e-4 is the same error bar).
 
+**Two caveats on this table, both important.**
+
+1. *Process-to-process spread is large on this node.* The identical configuration
+   (rows=4, corr0.5, same seeds) measured **851 µs** in this run, **683 µs** in
+   `b2_knobs_dflt_dflt_dflt.json` and **692 µs / 692 µs** in the two B3 auto passes. The
+   within-process spreads are 1-5%, so this is not measurement noise inside a run; it is
+   the process, the node state or the resident serving container. **That is exactly why
+   the `WIDE` decision was made on a paired A/B/A inside the same process rather than on
+   any cross-run comparison**, and why no claim in this report rests on comparing two
+   different containers.
+2. *The ceiling column is a DRAM-traffic model, and it over-predicts when L2 helps.* It
+   charges every distinct expert's full weight bytes to DRAM. With 24 MiB of L2 and 4
+   rows sharing 4 experts (`hot4`, `corr0.5`), a large part of that traffic is served
+   from L2, so the "62% of ceiling" rows are not 38% of headroom — they are the model
+   being wrong. The honest reading is the **independent-routing column**, where no
+   sharing helps: **77% at 1 row rising to 87-93% at 16-32 rows.**
+
 ### The bandwidth answer the brief asked for
 
-**The coop decode kernel is at 77-93% of this node's measured streaming read bandwidth,
-and time scales linearly with the number of *distinct* experts a step touches.** At
-rows ≥ 8 it is within 7-10% of a pure `torch.sum` over the same bytes. Therefore:
+**On independent routing the coop decode kernel runs at 77% of this node's measured
+streaming read bandwidth at 1 row and 87-93% at 16-32 rows, and time scales linearly
+with the number of *distinct* experts a step touches.** Therefore:
 
 * A "2× faster decode MoE kernel" is **not physically available** on GB10 with this
   quantization. The bytes are `distinct_experts × 14.1 MiB` per layer (K=2 experts) and
@@ -447,9 +464,11 @@ These are **arithmetic on measured per-operation medians plus the throughput rec
 §8.
 
 **Decode, c=1, DFlash2 k=3 → 4 rows per verify step.**
-Routed MoE: 683 µs (correlated routing) to 1,082 µs (independent) per layer × 57 MoE
-layers = **39-62 ms per step**. Against a step time of ~75-86 ms implied by 30.8 tok/s at
-2.3-2.7 accepted tokens per step, routed MoE is **~50-80% of the decode step**.
+Routed MoE: 851 µs (correlated routing, `b_coop_decode.json`) to 1,082 µs (independent)
+per layer × 57 MoE layers = **49-62 ms per step**; the paired B3 passes measured the
+correlated case at 692 µs, i.e. 39 ms, so the honest band is **39-62 ms per step**.
+Against a step time of ~75-86 ms implied by 30.8 tok/s at 2.3-2.7 accepted tokens per
+step, routed MoE is **~50-80% of the decode step**.
 → `WIDE=1` at +5-11% on that kernel ⇒ **+2.7% to +8.8% decode**, best at c=1.
 
 **Prefill, 16K chunk.**
@@ -493,7 +512,7 @@ medians. Rows marked *not implemented* have a measured headroom, not a measured 
 | indexer `_topk_index_kernel` | 16K rows, 192K prefix | 5,359 | *not implemented* | headroom **4-6×** (40.7 vs 239 GB/s) | — | **next phase** |
 | grouped fat GEMM gate\|up K2 | 16K tokens, 65,535 rows | 30,965 | *not implemented* | headroom ≈ 1.1× | — | **reject: 79.9 TFLOPS = 90.4% of ceiling** |
 | grouped fat GEMM down K2 scatter | 16K tokens, 65,535 rows | 24,513 | *not implemented* | headroom ≈ 1.75× | — | **next phase (epilogue redesign)** |
-| `exl3_moe_coop_mk` general decode speedup | 4-32 rows | 1,082-5,435 | *not implementable* | **≤ 1.10-1.30** | — | **reject: 77-93% of measured DRAM bandwidth** |
+| `exl3_moe_coop_mk` general decode speedup | 4-32 rows | 1,082-5,435 | *not implementable* | **≤ 1.10-1.30** | — | **reject: 77-93% of measured DRAM bandwidth under independent routing** |
 
 ## 8. Final ranking
 
@@ -507,7 +526,7 @@ medians. Rows marked *not implemented* have a measured headroom, not a measured 
 | 6 | Tiled attention launch tuning | **none found** — production `T=8 w8 s1` is the sweep optimum; `T=16` fails on shared memory | — | — | — | **rejected, no headroom** |
 | 7 | Forced split-k (`EXL3_MOE_COOP_KSPLIT`) | **negative**: −6% to −17% | — | — | — | **rejected** |
 | 8 | `EXL3_MOE_COOP_DSPLIT=1` | within spread at 16/24 rows (98.1%/98.7% of ceiling), neutral elsewhere | trivial | none | unchanged | **not claimed**; retest with more reps if decode at 16-24 rows ever becomes the target |
-| 9 | Faster coop decode kernel in general | **physically unavailable**: kernel is at 77-93% of measured DRAM bandwidth | — | — | — | **rejected with evidence** |
+| 9 | Faster coop decode kernel in general | **physically unavailable**: 77-93% of measured DRAM bandwidth under independent routing | — | — | — | **rejected with evidence** |
 | 10 | Gate/up grouped fat GEMM tuning | **no headroom**: 90% of measured bf16 GEMM ceiling | — | — | — | **rejected with evidence** |
 
 ---
