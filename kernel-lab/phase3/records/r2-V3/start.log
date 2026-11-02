@@ -1,0 +1,12 @@
+14:34:12 WARNING: profile q4-300k is UNMEASURED; do not publish its numbers
+wrote /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-143412/fabric.json
+14:34:16 launching both ranks in parallel
+3f10618587266d60a4d6e52feaa97f2f9951d44fcc39b4e322ac91a87e1a609f
+34577f6408ca65deece819d2228323ed6c3cb57d1000f2db0b51ef28e5dba529
+14:34:28 waiting for /v1/models (11.9s since launch; code=000)
+14:34:38 waiting for /v1/models (22.5s since launch; code=000)
+14:34:48 waiting for /v1/models (31.9s since launch; code=000)
+14:34:58 waiting for /v1/models (42.4s since launch; code=000)
+14:35:09 waiting for /v1/models (52.9s since launch; code=000)
+14:35:19 waiting for /v1/models (63.1s since launch; code=000)
+14:35:29 waiting for /v1/models (72.6s since launch; code=000)

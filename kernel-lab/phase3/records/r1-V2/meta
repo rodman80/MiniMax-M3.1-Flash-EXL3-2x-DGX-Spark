@@ -1,0 +1,5 @@
+start rc=0 wall=219s
+decode rc=0 wall=155s
+prefill rc=0 wall=295s
+spec rc=0 wall=71s
+check rc=0 wall=3s

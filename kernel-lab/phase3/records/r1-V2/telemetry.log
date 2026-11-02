@@ -1,0 +1,49 @@
+=== pre-start 2026-11-02T14:09:32-03:00 ===
+214 MHz, 3003 MHz, 57, 0 %, 4.80 W
+MemAvailable:   123059308 kB
+SwapFree:       16777212 kB
+=== post-start 2026-11-02T14:13:12-03:00 ===
+2177 MHz, 3003 MHz, 58, 0 %, 9.81 W
+1325461, 83812 MiB
+MemAvailable:   26785724 kB
+SwapFree:       16777212 kB
+=== pre-decode 2026-11-02T14:13:12-03:00 ===
+2177 MHz, 3003 MHz, 58, 0 %, 9.80 W
+1325461, 83812 MiB
+MemAvailable:   26766680 kB
+SwapFree:       16777212 kB
+=== post-decode 2026-11-02T14:15:47-03:00 ===
+2184 MHz, 3003 MHz, 74, 96 %, 38.40 W
+1325461, 83814 MiB
+MemAvailable:   26783568 kB
+SwapFree:       16777212 kB
+=== pre-prefill 2026-11-02T14:15:47-03:00 ===
+2184 MHz, 3003 MHz, 74, 96 %, 36.65 W
+1325461, 83814 MiB
+MemAvailable:   26765196 kB
+SwapFree:       16777212 kB
+=== post-prefill 2026-11-02T14:20:42-03:00 ===
+2184 MHz, 3003 MHz, 63, 76 %, 29.75 W
+1325461, 87836 MiB
+MemAvailable:   22563676 kB
+SwapFree:       16777212 kB
+=== pre-spec 2026-11-02T14:20:42-03:00 ===
+2184 MHz, 3003 MHz, 63, 76 %, 29.32 W
+1325461, 87836 MiB
+MemAvailable:   22585820 kB
+SwapFree:       16777212 kB
+=== post-spec 2026-11-02T14:21:53-03:00 ===
+2177 MHz, 3003 MHz, 70, 96 %, 38.39 W
+1325461, 87836 MiB
+MemAvailable:   22564560 kB
+SwapFree:       16777212 kB
+=== pre-check 2026-11-02T14:21:53-03:00 ===
+2177 MHz, 3003 MHz, 70, 96 %, 37.34 W
+1325461, 87836 MiB
+MemAvailable:   22570500 kB
+SwapFree:       16777212 kB
+=== post-check 2026-11-02T14:21:56-03:00 ===
+2177 MHz, 3003 MHz, 71, 92 %, 36.40 W
+1325461, 87838 MiB
+MemAvailable:   22522424 kB
+SwapFree:       16777212 kB

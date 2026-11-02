@@ -1,0 +1,39 @@
+{
+ "step": "prefill",
+ "started": "2026-11-02T14:07:50",
+ "seconds": 166.3,
+ "server": "http://10.100.24.2:8000",
+ "model": "minimax-m3.1-flash",
+ "result": {
+  "rows": [
+   {
+    "target_words": 8192,
+    "prompt_tokens": 8972,
+    "wall_s": 5.748,
+    "tok_s": 1560.8,
+    "ttft_s": 5.748
+   },
+   {
+    "target_words": 16384,
+    "prompt_tokens": 17829,
+    "wall_s": 11.602,
+    "tok_s": 1536.7,
+    "ttft_s": 11.601
+   },
+   {
+    "target_words": 49152,
+    "prompt_tokens": 52561,
+    "wall_s": 34.589,
+    "tok_s": 1519.6,
+    "ttft_s": 34.588
+   },
+   {
+    "target_words": 131072,
+    "prompt_tokens": 139973,
+    "wall_s": 114.333,
+    "tok_s": 1224.3,
+    "ttft_s": 114.332
+   }
+  ]
+ }
+}

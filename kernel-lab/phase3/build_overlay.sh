@@ -26,7 +26,7 @@ tar -C "$SRC" --exclude=.git --exclude=__pycache__ -cf - . | tar -C "$WORK" -xf 
 git -C "$WORK" init -q
 git -C "$WORK" add -A >/dev/null
 git -C "$WORK" -c user.name=kernel-lab -c user.email=kernel-lab@localhost commit -qm base
-git -C "$WORK" apply --directory=. "$ROOT/patches/0020-minimax-exl3-q4-slice-planner-v2.patch"
+git -C "$WORK" apply "$ROOT/patches/0020-minimax-exl3-q4-slice-planner-v2.patch"
 echo "patch 0020 applied cleanly"
 
 cp "$WORK/src/vllm_exl3/slice_planner.py" "$CTX/"

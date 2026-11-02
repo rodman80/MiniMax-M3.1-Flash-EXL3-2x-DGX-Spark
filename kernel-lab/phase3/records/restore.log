@@ -1,0 +1,15 @@
+14:33:29 WARNING: profile q4-300k is UNMEASURED; do not publish its numbers
+wrote /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-143329/fabric.json
+14:33:33 launching both ranks in parallel
+c79d261a319e40fbfd23e55753f01a5dd97bebcc4d26c4beffbad0c23c16873e
+8deb2cda05e3e07f0edfe0eca34db8fbc424298938c780f9c7d67a5ef88a74e9
+14:33:45 waiting for /v1/models (12.2s since launch; code=000)
+14:33:54 rank 0 container exited; last log lines:
+Error response from daemon: No such container: m31-flash-tp2
+2026-11-02T14:22:31-03:00 guard: watching m31-flash-tp2 (started after 1s)
+2026-11-02T14:33:04-03:00 guard: container m31-flash-tp2 is gone; exiting
+2026-11-02T14:33:33-03:00 guard: armed pid=1463504 floor=2097152KiB steady=1048576KiB swap_max=65536KiB drop_every=20s
+2026-11-02T14:33:34-03:00 guard: watching m31-flash-tp2 (started after 1s)
+2026-11-02T14:33:50-03:00 guard: stopped pid=1463504
+14:33:56 stopped m31-flash-tp2 on both nodes
+14:33:56 FAIL: start failed (rank 0; full logs in /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-143329/rank0.log, rank1.log)
