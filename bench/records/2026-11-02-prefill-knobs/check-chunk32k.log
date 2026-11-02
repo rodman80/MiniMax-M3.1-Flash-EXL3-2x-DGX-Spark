@@ -1,0 +1,7 @@
+  prose      MATCH  mean NLL 3.8257 vs 3.8313 (0.15%)
+  code       MATCH  mean NLL 3.3657 vs 3.2601 (3.24%)
+  math       MATCH  mean NLL 4.9363 vs 4.9583 (0.44%)
+  json       MATCH  mean NLL 11.1934 vs 10.5476 (6.12%)
+  reasoning  MATCH  mean NLL 5.2114 vs 5.6562 (7.86%)
+  dialogue   MATCH  mean NLL 6.7947 vs 6.8881 (1.36%)
+check: /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/bench/runs/2026-11-02-092425-check

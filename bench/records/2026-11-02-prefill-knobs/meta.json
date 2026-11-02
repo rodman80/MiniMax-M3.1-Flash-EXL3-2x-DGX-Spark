@@ -1,0 +1,162 @@
+{
+ "configs": {
+  "base-cntrl": {
+   "FAT_PREFILL_TOKENS": 1024,
+   "MAX_NUM_BATCHED_TOKENS": 16384
+  },
+  "chunk24k": {
+   "FAT_PREFILL_TOKENS": 1024,
+   "MAX_NUM_BATCHED_TOKENS": 24576
+  },
+  "chunk32k": {
+   "FAT_PREFILL_TOKENS": 1024,
+   "MAX_NUM_BATCHED_TOKENS": 32768
+  },
+  "end-cntrl": {
+   "FAT_PREFILL_TOKENS": 1024,
+   "MAX_NUM_BATCHED_TOKENS": 16384
+  },
+  "fat2048": {
+   "FAT_PREFILL_TOKENS": 2048,
+   "MAX_NUM_BATCHED_TOKENS": 16384
+  },
+  "fat512": {
+   "FAT_PREFILL_TOKENS": 512,
+   "MAX_NUM_BATCHED_TOKENS": 16384
+  }
+ },
+ "control_boots_16k": [
+  1527.5,
+  1498.2
+ ],
+ "control_drift_pct": -1.9,
+ "date": "2026-11-02",
+ "design": "one boot per config, two prefill runs per boot (8K,16K), decode c=1/c=4, bench check; two control boots (start and end of the sweep)",
+ "drafter": "dflash k=3",
+ "experiment": "prefill compute knobs: MAX_NUM_BATCHED_TOKENS (16384 vs 24576 vs 32768) and FAT_PREFILL_TOKENS (1024 vs 512 vs 2048)",
+ "headroom_note": "a curva longa e a alavanca real: 1491 -> 774 -> 577 tok/s em 52K -> 105K -> 140K. As correcoes publicadas para isso (indexer DCP, kernels QMUL4 NVFP4) exigem sm_100 e 4 ranks, inalancaveis aqui.",
+ "lane": "2.15bpw",
+ "long_context_curve_baseline": {
+  "105K": {
+   "tok_s": 773.6,
+   "tokens": 104931,
+   "ttft_s": 135.635
+  },
+  "140K": {
+   "tok_s": 577.1,
+   "tokens": 139885,
+   "ttft_s": 242.384
+  },
+  "52K": {
+   "tok_s": 1491.0,
+   "tokens": 52471,
+   "ttft_s": 35.191
+  },
+  "note": "medido no boot de baseline, chunk 16384; primeira vez que esta dupla registra isso"
+ },
+ "long_context_curve_chunk24k": {
+  "105K": {
+   "tok_s": 711.7
+  },
+  "140K": {
+   "tok_s": 479.0
+  },
+  "52K": {
+   "tok_s": 1551.5
+  }
+ },
+ "mtu": "1500 (rails)",
+ "nll": "6/6 MATCH em todas as boots",
+ "note": "medidas de par unico (antonius + spark-8352); PROFILE_MEASURED permanece 0",
+ "prefill_tok_s_mean": {
+  "base-cntrl": {
+   "16k": 1527.5,
+   "8k": 1560.1
+  },
+  "chunk24k": {
+   "16k": 1626.7,
+   "8k": 1549.9
+  },
+  "chunk32k": {
+   "16k": 1624.9,
+   "8k": 1549.7
+  },
+  "end-cntrl": {
+   "16k": 1498.2,
+   "8k": 1554.8
+  },
+  "fat2048": {
+   "16k": 1500.2,
+   "8k": 1555.4
+  },
+  "fat512": {
+   "16k": 1535.3,
+   "8k": 1548.8
+  }
+ },
+ "prefill_tok_s_repeats": {
+  "base-cntrl": {
+   "16k": [
+    1520.3,
+    1534.7
+   ],
+   "8k": [
+    1552.9,
+    1567.3
+   ]
+  },
+  "chunk24k": {
+   "16k": [
+    1630.7,
+    1622.7
+   ],
+   "8k": [
+    1539.6,
+    1560.3
+   ]
+  },
+  "chunk32k": {
+   "16k": [
+    1625.4,
+    1624.4
+   ],
+   "8k": [
+    1538.6,
+    1560.8
+   ]
+  },
+  "end-cntrl": {
+   "16k": [
+    1484.8,
+    1511.7
+   ],
+   "8k": [
+    1548.1,
+    1561.4
+   ]
+  },
+  "fat2048": {
+   "16k": [
+    1495.5,
+    1504.9
+   ],
+   "8k": [
+    1542.6,
+    1568.2
+   ]
+  },
+  "fat512": {
+   "16k": [
+    1529.4,
+    1541.3
+   ],
+   "8k": [
+    1535.6,
+    1561.9
+   ]
+  }
+ },
+ "profile": "q4-300k",
+ "verdict_chunk": "rejeitado. 24576/32768 dao +6.5% no prompt de ~17.7K tokens (1626.7 / 1624.9 vs controles de 1527.5 e 1498.3) mas perdem em contexto longo: -8.0% em 105K e -17.0% em 140K. O ganho curto e a cauda de 1.3K desaparecendo - a diluicao que a rejeicao original ja apontava. 16384 fica.",
+ "verdict_fat": "FAT_PREFILL_TOKENS 512 e 2048: neutros contra 1024 (16K: 1535.4 e 1500.2 vs controles 1527.5 e 1498.3, dentro da deriva de boot). Os knobs da fat tier ja estao no otimo deste pack."
+}
