@@ -1,0 +1,117 @@
+[
+ {
+  "window_s": 20,
+  "method": "dflash",
+  "k": 1,
+  "c1_prose": 24.8,
+  "c1_code": 26.5,
+  "c4_prose": 68.8,
+  "c4_code": 72.4,
+  "accepted_per_step_prose": 0.701,
+  "accepted_per_step_code": 0.766
+ },
+ {
+  "window_s": 20,
+  "method": "dflash",
+  "k": 2,
+  "c1_prose": 26.9,
+  "c1_code": 30.3,
+  "c4_prose": 73.4,
+  "c4_code": 76.2,
+  "accepted_per_step_prose": 1.012,
+  "accepted_per_step_code": 1.25
+ },
+ {
+  "window_s": 20,
+  "method": "dflash",
+  "k": 4,
+  "c1_prose": 26.2,
+  "c1_code": 35.1,
+  "c4_prose": 41.2,
+  "c4_code": 47.0,
+  "accepted_per_step_prose": 1.248,
+  "accepted_per_step_code": 1.988
+ },
+ {
+  "window_s": 20,
+  "method": "dflash",
+  "k": 5,
+  "c1_prose": 26.7,
+  "c1_code": 33.7,
+  "c4_prose": 36.8,
+  "c4_code": 45.6,
+  "accepted_per_step_prose": 1.163,
+  "accepted_per_step_code": 2.054
+ },
+ {
+  "window_s": 20,
+  "method": "dflash",
+  "k": 7,
+  "c1_prose": 23.8,
+  "c1_code": 28.3,
+  "c4_prose": 32.1,
+  "c4_code": 38.4,
+  "accepted_per_step_prose": 1.211,
+  "accepted_per_step_code": 1.852
+ },
+ {
+  "window_s": 30,
+  "method": "dflash",
+  "k": 2,
+  "tag": "dflash-k2",
+  "c1_prose": 26.1,
+  "c1_code": 30.7,
+  "c4_prose": 61.8,
+  "c4_code": 78.5,
+  "accepted_per_step_prose": 1.032,
+  "accepted_per_step_code": 1.338
+ },
+ {
+  "window_s": 30,
+  "method": "dflash",
+  "k": 3,
+  "tag": "dflash-k3",
+  "c1_prose": 27.3,
+  "c1_code": 32.8,
+  "c4_prose": 55.2,
+  "c4_code": 79.1,
+  "accepted_per_step_prose": 1.034,
+  "accepted_per_step_code": 1.631
+ },
+ {
+  "window_s": 30,
+  "method": "dspark",
+  "k": 3,
+  "tag": "dspark-k3",
+  "c1_prose": 26.0,
+  "c1_code": 33.8,
+  "c4_prose": 53.8,
+  "c4_code": 73.7,
+  "accepted_per_step_prose": 0.916,
+  "accepted_per_step_code": 1.555
+ },
+ {
+  "window_s": 30,
+  "method": "dflash",
+  "k": 2,
+  "tag": "dflash-k2b",
+  "c1_prose": 26.0,
+  "c1_code": 30.2,
+  "c4_prose": 63.9,
+  "c4_code": 76.7,
+  "accepted_per_step_prose": 0.947,
+  "accepted_per_step_code": 1.33
+ },
+ {
+  "window_s": 30,
+  "method": "dflash",
+  "k": 4,
+  "tag": "dflash-k4x",
+  "c1_prose": 27.4,
+  "c1_code": 35.0,
+  "c4_prose": 41.5,
+  "c4_code": 45.9,
+  "accepted_per_step_prose": 1.177,
+  "accepted_per_step_code": 1.973
+ }
+]

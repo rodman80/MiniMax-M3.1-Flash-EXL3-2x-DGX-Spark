@@ -1,0 +1,133 @@
+{
+ "abab_control": {
+  "decode_c1_code": 33.3,
+  "decode_c1_prose": 25.2,
+  "decode_c4_code": 88.4,
+  "decode_c4_prose": 61.1,
+  "k": 3,
+  "run": "bench/records/2026-11-01-q4-300k/decode-abab"
+ },
+ "boot": {
+  "endpoint_up_s": 303.2,
+  "engine_up_s": 289.5,
+  "first_boot_of_image": true,
+  "mem_available_gib_rank0": 27.76,
+  "mem_available_gib_rank1": 29.41,
+  "preflight_s": 13.7,
+  "ready_s": 107.1,
+  "run_dir": "runs/20261101-222111",
+  "smoke_s": 6.6,
+  "warmup_s": 5.2,
+  "weight_snapshot_written": true
+ },
+ "commands": [
+  "./m31.sh bench decode --conc 1,4 --types prose,code --seconds 20",
+  "./m31.sh bench spec"
+ ],
+ "config_delta": {
+  "cudagraph_capture_sizes": [
+   1,
+   2,
+   3,
+   4,
+   6,
+   8,
+   12,
+   16,
+   24,
+   32,
+   36
+  ],
+  "num_speculative_tokens": 5,
+  "why_capture_sizes": "o perfil so cobre ate 24 = 6x4 (k=3); com k=5 sao 6 linhas por sequencia"
+ },
+ "date": "2026-11-01",
+ "fabric": {
+  "gid": 3,
+  "hcas": [
+   "rocep1s0f0",
+   "roceP2p1s0f0"
+  ],
+  "ifname": "enp1s0f0np0",
+  "mtu": 1500,
+  "note": "rails a 1500 (nao 9000); uniforme nos dois nos; custo nao medido",
+  "rendezvous": "10.100.24.2",
+  "subnets": [
+   "10.100.24.0/24",
+   "10.100.25.0/24"
+  ]
+ },
+ "gates": {
+  "api_conformance": "16 pass, 1 warn (temperature-0 determinism; esperado: greedy nao reproduzivel nesta stack), 0 fail",
+  "nll_check": "todos MATCH, maior drift 7.69% (tolerancia 10%)",
+  "probe": "OK (9/9)",
+  "quality": "50/50",
+  "smoke": "PASS (mixed-K dispatch: unified)",
+  "toolgate": "24/27 (3 falhas order_* -> run_sql; igual ao PERFORMANCE.md)"
+ },
+ "host_software": {
+  "docker": "Docker version 29.6.2, build dfc4efb",
+  "driver": "580.178.04",
+  "kernel": "7.0.0-1019-nvidia",
+  "page_size": "4096"
+ },
+ "image": {
+  "base": "vllm/vllm-openai:minimax-m31-flash",
+  "base_digest": "sha256:86f582dae25ea92802353727164ae4eb03b37b18baf9119b805ffaec2a7ef07c",
+  "exl3_rev": "fdd77361971144e8d175e09e7b50b7100739fd95",
+  "id": "sha256:8894847edc57b91b4a50f5dcd8254c139a9309a505f5c704ac85fa01db039ae5",
+  "patch_sha256": "8d9c23f689550ce41bd4db878f894c2bb836def71407590ec77d2e098ea6e557",
+  "plugin_rev": "053c634db54afc981becfb46c0482e7358cc00ba",
+  "tag": "m31-flash-exl3-tp2:053c634d-8d9c23f6"
+ },
+ "kv_line": "GPU KV cache size: 726,578 tokens, Maximum concurrency for 300,000 tokens per request: 2.42x",
+ "lane": "2.15bpw",
+ "nodes": {
+  "rank0": "antonius / 10.100.24.2",
+  "rank1": "spark-8352 / 10.100.24.1"
+ },
+ "notes": "Baseline desta dupla, primeiro boot da imagem. PROFILE_MEASURED permanece 0: um par so, sem repeticao.",
+ "pack": {
+  "bytes": 118985525140,
+  "name": "MiniMax-M3.1-Flash-EXL3-SAGE-2.15bpw",
+  "repo": "vcruz305/MiniMax-M3.1-Flash-EXL3-SAGE-2.15bpw",
+  "revision": "99bf3a57af5d07245ea9abb5426e7dce6af6356b",
+  "verified": "40 arquivos com sha256 conferido nos dois nos"
+ },
+ "profile": "q4-300k",
+ "result": {
+  "accepted_per_step": {
+   "code": 1.907,
+   "prose": 1.06
+  },
+  "decode_c1_code": 34.4,
+  "decode_c1_prose": 23.0,
+  "decode_c4_code": 44.1,
+  "decode_c4_prose": 32.5,
+  "mean_acceptance_length": 2.8,
+  "per_position_acceptance": [
+   0.75,
+   0.47,
+   0.31,
+   0.15,
+   0.11
+  ],
+  "verdict": "PERDE: +6% de comprimento de aceite (2.80 vs 2.65) contra +50% de linhas por passo; c=4 cai ~50%"
+ },
+ "serving": {
+  "draft_attn_backend": "TRITON_ATTN",
+  "draft_kv_dtype": "fp8",
+  "dspark": 1,
+  "fat_prefill_tokens": 1024,
+  "fat_threshold": 128,
+  "fat_threshold_prefill": 0,
+  "indexer_kv_dtype": "fp8",
+  "kv_cache_dtype": "nvfp4",
+  "kv_cache_memory_bytes_per_rank": 20000000000,
+  "kv_cache_tokens_per_rank": 726578,
+  "max_model_len": 300000,
+  "max_num_batched_tokens": 16384,
+  "max_num_seqs": 6,
+  "num_speculative_tokens": 3
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "step": "check",
+ "started": "2026-11-01T21:44:08",
+ "seconds": 2.6,
+ "server": "http://10.100.24.2:8000",
+ "model": "minimax-m3.1-flash",
+ "result": {
+  "rows": [
+   {
+    "label": "prose",
+    "ok": true,
+    "mean_nll": 3.789548,
+    "ref_mean_nll": 3.831313,
+    "rel_diff": 0.0109
+   },
+   {
+    "label": "code",
+    "ok": true,
+    "mean_nll": 3.331385,
+    "ref_mean_nll": 3.260148,
+    "rel_diff": 0.0219
+   },
+   {
+    "label": "math",
+    "ok": true,
+    "mean_nll": 4.936289,
+    "ref_mean_nll": 4.958333,
+    "rel_diff": 0.0044
+   },
+   {
+    "label": "json",
+    "ok": true,
+    "mean_nll": 11.173779,
+    "ref_mean_nll": 10.547562,
+    "rel_diff": 0.0594
+   },
+   {
+    "label": "reasoning",
+    "ok": true,
+    "mean_nll": 5.221485,
+    "ref_mean_nll": 5.656202,
+    "rel_diff": 0.0769
+   },
+   {
+    "label": "dialogue",
+    "ok": true,
+    "mean_nll": 6.794746,
+    "ref_mean_nll": 6.888125,
+    "rel_diff": 0.0136
+   }
+  ],
+  "failed": 0,
+  "tolerance": 0.1
+ }
+}

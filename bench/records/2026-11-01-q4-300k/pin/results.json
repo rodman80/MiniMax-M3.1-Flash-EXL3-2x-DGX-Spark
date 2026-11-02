@@ -1,0 +1,11 @@
+{
+ "step": "pin",
+ "started": "2026-11-01T21:43:02",
+ "seconds": 4.3,
+ "server": "http://10.100.24.2:8000",
+ "model": "minimax-m3.1-flash",
+ "result": {
+  "reference": "/home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/bench/reference.json",
+  "passages": 6
+ }
+}
