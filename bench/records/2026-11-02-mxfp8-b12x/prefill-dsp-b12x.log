@@ -1,0 +1,4 @@
+prefill: lengths [8192, 16384] (max_model_len 300000)
+      8192 target -> 8879 tokens  1540.9 tok/s  TTFT 5.762s
+     16384 target -> 17570 tokens  1484.1 tok/s  TTFT 11.838s
+prefill: /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/bench/runs/2026-11-02-082951-prefill

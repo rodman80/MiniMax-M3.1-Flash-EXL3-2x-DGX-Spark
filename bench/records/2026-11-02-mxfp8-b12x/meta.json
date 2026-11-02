@@ -1,0 +1,81 @@
+{
+ "cells_genuine_or_noise": {
+  "c1_code": "nao medido (+2.4% vs 0.0% de ruido da celula, mas c=1 e instavel entre boots)",
+  "c1_prose": "provavel perda (-7.4% vs 4.2%)",
+  "c4_code": "nao medido (+2.8% vs 2.8%)",
+  "c4_prose": "nao medido (+4.8% vs 3.8%)",
+  "prefill_16k": "perda real (-4.0% vs 0.4% de ruido)",
+  "prefill_8k": "neutro (-0.5% vs 0.6%)"
+ },
+ "commands": [
+  "SPEC_METHOD=dspark LINEAR_BACKEND_MXFP8=<be> ./m31.sh restart",
+  "./m31.sh bench decode --conc 1,4 --types prose,code --seconds 20",
+  "./m31.sh bench prefill --lengths 8k,16k",
+  "./m31.sh bench check"
+ ],
+ "date": "2026-11-02",
+ "delta_b12x_vs_marlin_mean_pct": {
+  "c=1_code": 2.4,
+  "c=1_prose": -7.4,
+  "c=4_code": 2.8,
+  "c=4_prose": 4.8,
+  "prefill_16k": -4.0,
+  "prefill_8k": -0.5
+ },
+ "design": "A/B/A, one boot per config, decode 20s windows c=1/c=4 prose+code, prefill 8K/16K, bench check per boot",
+ "drafter": "dspark (the drafter that instantiates the MXFP8 projections; with dflash they are never built and the knob is inert - see docs/RECIPE_DECISIONS.md)",
+ "experiment": "MXFP8 linear backend: marlin (qualified) vs b12x (engine's SM12x-native family)",
+ "kernel_verified": {
+  "dsp-b12x": "Using B12xMxfp8LinearKernel",
+  "dsp-marlin": "Using MarlinMxfp8LinearKernel",
+  "dsp2-marlin": "Using MarlinMxfp8LinearKernel"
+ },
+ "knob": "LINEAR_BACKEND_MXFP8 (branch b12x-mxfp8-linear; default marlin)",
+ "lane": "2.15bpw",
+ "marlin_run_to_run_spread_pct": {
+  "c=1_code": 0.0,
+  "c=1_prose": 4.2,
+  "c=4_code": 2.8,
+  "c=4_prose": 3.8,
+  "prefill_16k": 0.4,
+  "prefill_8k": 0.6
+ },
+ "nll": "6/6 MATCH in all three boots (bench/reference.json)",
+ "noise_is_not_uniform": "prefill is measured precisely (run-to-run 0.4-0.6%); decode c=1 prose and c=4 prose carry 3.8-4.2% boot spread. Judge each cell against its own spread, not one global band.",
+ "note": "medida de par unico (antonius + spark-8352); PROFILE_MEASURED permanece 0",
+ "profile": "q4-300k",
+ "runs": {
+  "dsp-b12x": {
+   "c=1_code": 34.8,
+   "c=1_prose": 26.3,
+   "c=4_code": 85.0,
+   "c=4_prose": 69.0,
+   "kernel": "Using B12xMxfp8LinearKernel",
+   "nll_match": 6,
+   "prefill_16k": 1484.1,
+   "prefill_8k": 1540.9
+  },
+  "dsp-marlin": {
+   "c=1_code": 34.0,
+   "c=1_prose": 29.0,
+   "c=4_code": 83.8,
+   "c=4_prose": 64.6,
+   "kernel": "Using MarlinMxfp8LinearKernel",
+   "nll_match": 6,
+   "prefill_16k": 1543.4,
+   "prefill_8k": 1543.5
+  },
+  "dsp2-marlin": {
+   "c=1_code": 34.0,
+   "c=1_prose": 27.8,
+   "c=4_code": 81.5,
+   "c=4_prose": 67.1,
+   "kernel": "Using MarlinMxfp8LinearKernel",
+   "nll_match": 6,
+   "prefill_16k": 1549.7,
+   "prefill_8k": 1552.7
+  }
+ },
+ "verdict": "nao adotado. prefill 16K -4.0% contra ruido de 0.4-0.6% = perda real; c=1 prose -7.4% contra 4.2% = provavel perda; prefill 8K -0.5% contra 0.6% = neutro; os tres ganhos de decode (+2.4%, +4.8%, +2.8%) estao todos dentro da faixa de ruido daquelas celulas, ou seja, nao medidos. Nenhum ganho demonstrado e ao menos uma perda real: marlin continua o default.",
+ "why": "the vLLM launch blog's PrimiTS drafter path is gated to sm_100/103/107 and refused on GB10 (sm_121); b12x is the runnable SM12x alternative"
+}
