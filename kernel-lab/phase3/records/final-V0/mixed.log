@@ -1,0 +1,6 @@
+long prefill: TTFT 240.1s tokens 136033
+decode: 394 tok over 75.0s = 5.25 tok/s  ITL before 119.6 ms after 15803.5 ms
+  stream 0: 98 tok  before {'n': 92, 'median_ms': 119.7, 'p90_ms': 129.8}  after {'n': 4, 'median_ms': 15803.6, 'p90_ms': 33773.7}
+  stream 1: 98 tok  before {'n': 92, 'median_ms': 119.6, 'p90_ms': 129.9}  after {'n': 4, 'median_ms': 15803.5, 'p90_ms': 33774.4}
+  stream 2: 100 tok  before {'n': 94, 'median_ms': 119.6, 'p90_ms': 130.2}  after {'n': 4, 'median_ms': 15803.6, 'p90_ms': 33764.2}
+  stream 3: 98 tok  before {'n': 92, 'median_ms': 119.5, 'p90_ms': 130.0}  after {'n': 4, 'median_ms': 15803.4, 'p90_ms': 33774.5}

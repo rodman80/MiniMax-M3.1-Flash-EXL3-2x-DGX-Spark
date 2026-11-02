@@ -1,0 +1,18 @@
+PASS  models: ['minimax-m3.1-flash'] max_model_len=300000
+PASS  health: HTTP 200
+PASS  chat + usage: completion_tokens=3
+PASS  max_tokens: completion_tokens=3
+PASS  stop sequence
+PASS  streaming: 2 deltas, usage.completion_tokens=3
+PASS  reasoning separation: 213 chars, reasoning_tokens=66
+PASS  tool call: calls=1
+PASS  completions
+PASS  tokenize: count=2
+PASS  detokenize: HTTP 200
+PASS  unknown model: HTTP 404
+PASS  bad JSON: HTTP 400
+PASS  empty messages: HTTP 400
+PASS  max_tokens over context: HTTP 400
+PASS  4 concurrent requests: [200, 200, 200, 200]
+PASS  temperature-0 determinism: identical
+api conformance: 17 pass, 0 warn, 0 fail

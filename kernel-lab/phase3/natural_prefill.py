@@ -38,7 +38,7 @@ def natural_text(seed: int, target_tokens: int, ratio: float = 1.3) -> str:
                 paras.append(chunk)
     rng = random.Random(seed)
     rng.shuffle(paras)
-    need = int(target_tokens * ratio)
+    need = max(1, int(target_tokens / ratio))
     out, total = [], 0
     i = 0
     while total < need:
@@ -47,6 +47,22 @@ def natural_text(seed: int, target_tokens: int, ratio: float = 1.3) -> str:
         total += len(p.split())
         i += 1
     return "Nonce " + uuid.uuid4().hex[:10] + ".\n\n" + "\n\n".join(out)
+
+
+def count_tokens(url_base: str, text: str, model: str, api_key: str):
+    """Ask the server to tokenize, so the prompt is sized against the real tokenizer."""
+    url = url_base.rstrip("/") + "/tokenize"
+    headers = {"Content-Type": "application/json"}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+    req = urllib.request.Request(
+        url, json.dumps({"model": model, "prompt": text, "max_tokens": 200000}).encode(),
+        headers)
+    try:
+        with urllib.request.urlopen(req, timeout=600) as r:
+            return json.loads(r.read()).get("count")
+    except Exception:
+        return None
 
 
 def stream_ttft(url, body, api_key, timeout=3600):
@@ -87,6 +103,8 @@ def main():
     ap.add_argument("--model", default="minimax-m3.1-flash")
     ap.add_argument("--api-key", default=os.environ.get("API_KEY", ""))
     ap.add_argument("--tokens", type=int, default=131072)
+    ap.add_argument("--max-prompt-tokens", type=int, default=295000,
+                    help="leave headroom under max_model_len for the chat template")
     ap.add_argument("--reps", type=int, default=2)
     ap.add_argument("--seed", type=int, default=20261102)
     ap.add_argument("--out", required=True)
@@ -99,12 +117,21 @@ def main():
         # rep 2 measure the cache, not the prefill. Same seed sequence per cell, so every
         # cell sees the same documents.
         text = natural_text(a.seed + rep, a.tokens)
+        n = count_tokens(a.base_url, text, a.model, a.api_key)
+        # markdown and fenced code tokenize denser than prose: trim until the server
+        # agrees the prompt fits, leaving headroom for the chat template and the one
+        # generated token.
+        while n and n > a.max_prompt_tokens:
+            a.tokens = int(a.tokens * 0.92)
+            text = natural_text(a.seed + rep, a.tokens)
+            n = count_tokens(a.base_url, text, a.model, a.api_key)
         body = {"model": a.model, "messages": [{"role": "user", "content": text}],
                 "max_tokens": 1, "temperature": 0}
         try:
             ttft, usage = stream_ttft(url, body, a.api_key)
             pt = (usage or {}).get("prompt_tokens")
-            rows.append({"rep": rep, "prompt_tokens": pt, "ttft_s": round(ttft, 2) if ttft else None,
+            rows.append({"rep": rep, "prompt_tokens": pt, "precount_tokens": n,
+                         "ttft_s": round(ttft, 2) if ttft else None,
                          "tok_s": round(pt / ttft, 1) if pt and ttft else None})
             print(f"  rep {rep}: {pt} tokens  TTFT {rows[-1]['ttft_s']}s  {rows[-1]['tok_s']} tok/s",
                   flush=True)

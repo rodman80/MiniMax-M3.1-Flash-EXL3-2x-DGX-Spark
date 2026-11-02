@@ -1,0 +1,5 @@
+needle: 65536 tokens, depths 10,50,90
+  depth 10%  prompt 69988  PASS
+  depth 50%  prompt 69952  PASS
+  depth 90%  prompt 70257  PASS
+needle: /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/bench/runs/2026-11-02-155130-needle

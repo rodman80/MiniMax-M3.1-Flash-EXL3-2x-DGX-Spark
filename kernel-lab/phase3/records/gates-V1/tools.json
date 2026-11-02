@@ -1,0 +1,176 @@
+{
+ "passed": 25,
+ "total": 27,
+ "min_pass": 0,
+ "rows": [
+  {
+   "scenario": "weather_required",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "weather_enum",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "search_limit",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "email_required",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "email_cc_array",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "order_integer",
+   "ok": false,
+   "detail": "no call to create_order; got ['run_sql']",
+   "response": {
+    "content": "I'll quickly verify the customer and SKU exist before creating the order.",
+    "tool_calls": [
+     {
+      "id": "chatcmpl-tool-ad1f0a91efe44d7e",
+      "type": "function",
+      "function": {
+       "name": "run_sql",
+       "arguments": "{\"query\": \"SELECT c.id AS customer_id, c.name AS customer_name, s.sku, s.name AS sku_name, s.price, s.stock FROM customers c JOIN products s ON 1=1 WHERE c.id = 42 AND s.sku = 'abc-1'\", \"readonly\": true}"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "scenario": "order_nested",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "translate_enum",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "sql_true",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "multi_tool",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "two_cities",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "weather_fahrenheit",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "search_integer",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "email_body",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "email_cc_two",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "order_two_skus",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "order_standard",
+   "ok": false,
+   "detail": "no call to create_order; got ['run_sql', 'run_sql']",
+   "response": {
+    "content": "I'll check the product catalog first to confirm the correct SKU for 'bolt'.",
+    "tool_calls": [
+     {
+      "id": "chatcmpl-tool-8e0916b37e1ed7e9",
+      "type": "function",
+      "function": {
+       "name": "run_sql",
+       "arguments": "{\"query\": \"SELECT sku, name FROM products ORDER BY sku\", \"readonly\": true}"
+      }
+     },
+     {
+      "id": "chatcmpl-tool-8c3e0f0cd22f4389",
+      "type": "function",
+      "function": {
+       "name": "run_sql",
+       "arguments": "{\"query\": \"SELECT id, name FROM customers WHERE id = 3\", \"readonly\": true}"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "scenario": "translate_german",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "translate_spanish",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "sql_false",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "three_tools",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "search_phrase",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "email_no_cc",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "search_limit_one",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scenario": "no_tool",
+   "ok": true,
+   "detail": "empty answer"
+  },
+  {
+   "scenario": "tool_result_followup",
+   "ok": true,
+   "detail": "answer did not use the result: 'the weather in paris is currently **21\u00b0c with clear skies**.'"
+  },
+  {
+   "scenario": "tool_error_recovery",
+   "ok": true,
+   "detail": "neither a corrected call nor an honest explanation; content=''"
+  }
+ ]
+}

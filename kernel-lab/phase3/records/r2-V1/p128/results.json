@@ -1,0 +1,18 @@
+{
+ "step": "prefill",
+ "started": "2026-11-02T15:00:33",
+ "seconds": 114.0,
+ "server": "http://10.100.24.2:8000",
+ "model": "minimax-m3.1-flash",
+ "result": {
+  "rows": [
+   {
+    "target_words": 131072,
+    "prompt_tokens": 139963,
+    "wall_s": 113.929,
+    "tok_s": 1228.5,
+    "ttft_s": 113.926
+   }
+  ]
+ }
+}

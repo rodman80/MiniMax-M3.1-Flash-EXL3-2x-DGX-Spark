@@ -1,0 +1,21 @@
+{
+ "step": "natural_prefill",
+ "target_tokens": 98304,
+ "seed": 20261102,
+ "rows": [
+  {
+   "rep": 0,
+   "prompt_tokens": 146443,
+   "precount_tokens": 146252,
+   "ttft_s": 623.38,
+   "tok_s": 234.9
+  },
+  {
+   "rep": 1,
+   "prompt_tokens": 146474,
+   "precount_tokens": 146283,
+   "ttft_s": 619.45,
+   "tok_s": 236.5
+  }
+ ]
+}

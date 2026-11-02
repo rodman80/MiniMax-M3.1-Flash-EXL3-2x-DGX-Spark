@@ -1,0 +1,407 @@
+{
+ "accuracy": 50,
+ "total": 50,
+ "min": 0,
+ "rows": [
+  {
+   "kind": "multiply 504x93",
+   "prompt": "What is 504*93? Reply with the integer only.",
+   "want": "46872",
+   "content": "46872",
+   "ok": true,
+   "completion_tokens": 32
+  },
+  {
+   "kind": "multiply 449x36",
+   "prompt": "What is 449*36? Reply with the integer only.",
+   "want": "16164",
+   "content": "16164",
+   "ok": true,
+   "completion_tokens": 20
+  },
+  {
+   "kind": "multiply 832x24",
+   "prompt": "What is 832*24? Reply with the integer only.",
+   "want": "19968",
+   "content": "19968",
+   "ok": true,
+   "completion_tokens": 34
+  },
+  {
+   "kind": "multiply 373x51",
+   "prompt": "What is 373*51? Reply with the integer only.",
+   "want": "19023",
+   "content": "19023",
+   "ok": true,
+   "completion_tokens": 28
+  },
+  {
+   "kind": "multiply 116x49",
+   "prompt": "What is 116*49? Reply with the integer only.",
+   "want": "5684",
+   "content": "5684",
+   "ok": true,
+   "completion_tokens": 28
+  },
+  {
+   "kind": "multiply 290x13",
+   "prompt": "What is 290*13? Reply with the integer only.",
+   "want": "3770",
+   "content": "3770",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 692x48",
+   "prompt": "What is 692*48? Reply with the integer only.",
+   "want": "33216",
+   "content": "33216",
+   "ok": true,
+   "completion_tokens": 49
+  },
+  {
+   "kind": "multiply 879x73",
+   "prompt": "What is 879*73? Reply with the integer only.",
+   "want": "64167",
+   "content": "64167",
+   "ok": true,
+   "completion_tokens": 32
+  },
+  {
+   "kind": "multiply 883x79",
+   "prompt": "What is 883*79? Reply with the integer only.",
+   "want": "69757",
+   "content": "69757",
+   "ok": true,
+   "completion_tokens": 30
+  },
+  {
+   "kind": "multiply 657x67",
+   "prompt": "What is 657*67? Reply with the integer only.",
+   "want": "44019",
+   "content": "44019",
+   "ok": true,
+   "completion_tokens": 32
+  },
+  {
+   "kind": "multiply 650x73",
+   "prompt": "What is 650*73? Reply with the integer only.",
+   "want": "47450",
+   "content": "47450",
+   "ok": true,
+   "completion_tokens": 31
+  },
+  {
+   "kind": "multiply 604x55",
+   "prompt": "What is 604*55? Reply with the integer only.",
+   "want": "33220",
+   "content": "33220",
+   "ok": true,
+   "completion_tokens": 34
+  },
+  {
+   "kind": "multiply 279x83",
+   "prompt": "What is 279*83? Reply with the integer only.",
+   "want": "23157",
+   "content": "23157",
+   "ok": true,
+   "completion_tokens": 31
+  },
+  {
+   "kind": "multiply 760x83",
+   "prompt": "What is 760*83? Reply with the integer only.",
+   "want": "63080",
+   "content": "63080",
+   "ok": true,
+   "completion_tokens": 32
+  },
+  {
+   "kind": "multiply 488x21",
+   "prompt": "What is 488*21? Reply with the integer only.",
+   "want": "10248",
+   "content": "10248",
+   "ok": true,
+   "completion_tokens": 29
+  },
+  {
+   "kind": "multiply 511x21",
+   "prompt": "What is 511*21? Reply with the integer only.",
+   "want": "10731",
+   "content": "10731",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 664x71",
+   "prompt": "What is 664*71? Reply with the integer only.",
+   "want": "47144",
+   "content": "47144",
+   "ok": true,
+   "completion_tokens": 29
+  },
+  {
+   "kind": "multiply 270x69",
+   "prompt": "What is 270*69? Reply with the integer only.",
+   "want": "18630",
+   "content": "18630",
+   "ok": true,
+   "completion_tokens": 28
+  },
+  {
+   "kind": "multiply 148x76",
+   "prompt": "What is 148*76? Reply with the integer only.",
+   "want": "11248",
+   "content": "11248",
+   "ok": true,
+   "completion_tokens": 37
+  },
+  {
+   "kind": "multiply 944x27",
+   "prompt": "What is 944*27? Reply with the integer only.",
+   "want": "25488",
+   "content": "25488",
+   "ok": true,
+   "completion_tokens": 43
+  },
+  {
+   "kind": "multiply 171x68",
+   "prompt": "What is 171*68? Reply with the integer only.",
+   "want": "11628",
+   "content": "11628",
+   "ok": true,
+   "completion_tokens": 18
+  },
+  {
+   "kind": "multiply 219x47",
+   "prompt": "What is 219*47? Reply with the integer only.",
+   "want": "10293",
+   "content": "10293",
+   "ok": true,
+   "completion_tokens": 51
+  },
+  {
+   "kind": "multiply 159x84",
+   "prompt": "What is 159*84? Reply with the integer only.",
+   "want": "13356",
+   "content": "13356",
+   "ok": true,
+   "completion_tokens": 33
+  },
+  {
+   "kind": "multiply 162x30",
+   "prompt": "What is 162*30? Reply with the integer only.",
+   "want": "4860",
+   "content": "4860",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 420x61",
+   "prompt": "What is 420*61? Reply with the integer only.",
+   "want": "25620",
+   "content": "25620",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 414x49",
+   "prompt": "What is 414*49? Reply with the integer only.",
+   "want": "20286",
+   "content": "20286",
+   "ok": true,
+   "completion_tokens": 30
+  },
+  {
+   "kind": "multiply 121x20",
+   "prompt": "What is 121*20? Reply with the integer only.",
+   "want": "2420",
+   "content": "2420",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 741x74",
+   "prompt": "What is 741*74? Reply with the integer only.",
+   "want": "54834",
+   "content": "54834",
+   "ok": true,
+   "completion_tokens": 34
+  },
+  {
+   "kind": "multiply 329x15",
+   "prompt": "What is 329*15? Reply with the integer only.",
+   "want": "4935",
+   "content": "4935",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 671x83",
+   "prompt": "What is 671*83? Reply with the integer only.",
+   "want": "55693",
+   "content": "55693",
+   "ok": true,
+   "completion_tokens": 32
+  },
+  {
+   "kind": "multiply 673x17",
+   "prompt": "What is 673*17? Reply with the integer only.",
+   "want": "11441",
+   "content": "11441",
+   "ok": true,
+   "completion_tokens": 31
+  },
+  {
+   "kind": "multiply 607x37",
+   "prompt": "What is 607*37? Reply with the integer only.",
+   "want": "22459",
+   "content": "22459",
+   "ok": true,
+   "completion_tokens": 32
+  },
+  {
+   "kind": "multiply 565x27",
+   "prompt": "What is 565*27? Reply with the integer only.",
+   "want": "15255",
+   "content": "15255",
+   "ok": true,
+   "completion_tokens": 34
+  },
+  {
+   "kind": "multiply 412x53",
+   "prompt": "What is 412*53? Reply with the integer only.",
+   "want": "21836",
+   "content": "21836",
+   "ok": true,
+   "completion_tokens": 34
+  },
+  {
+   "kind": "multiply 554x46",
+   "prompt": "What is 554*46? Reply with the integer only.",
+   "want": "25484",
+   "content": "25484",
+   "ok": true,
+   "completion_tokens": 34
+  },
+  {
+   "kind": "multiply 427x62",
+   "prompt": "What is 427*62? Reply with the integer only.",
+   "want": "26474",
+   "content": "26474",
+   "ok": true,
+   "completion_tokens": 31
+  },
+  {
+   "kind": "multiply 961x18",
+   "prompt": "What is 961*18? Reply with the integer only.",
+   "want": "17298",
+   "content": "17298",
+   "ok": true,
+   "completion_tokens": 14
+  },
+  {
+   "kind": "multiply 117x26",
+   "prompt": "What is 117*26? Reply with the integer only.",
+   "want": "3042",
+   "content": "3042",
+   "ok": true,
+   "completion_tokens": 14
+  },
+  {
+   "kind": "multiply 140x72",
+   "prompt": "What is 140*72? Reply with the integer only.",
+   "want": "10080",
+   "content": "10080",
+   "ok": true,
+   "completion_tokens": 13
+  },
+  {
+   "kind": "multiply 302x77",
+   "prompt": "What is 302*77? Reply with the integer only.",
+   "want": "23254",
+   "content": "23254",
+   "ok": true,
+   "completion_tokens": 35
+  },
+  {
+   "kind": "capital France",
+   "prompt": "What is the capital of France? Reply with the city name only.",
+   "want": "Paris",
+   "content": "Paris",
+   "ok": true,
+   "completion_tokens": 17
+  },
+  {
+   "kind": "capital Japan",
+   "prompt": "What is the capital of Japan? Reply with the city name only.",
+   "want": "Tokyo",
+   "content": "Tokyo",
+   "ok": true,
+   "completion_tokens": 17
+  },
+  {
+   "kind": "capital Canada",
+   "prompt": "What is the capital of Canada? Reply with the city name only.",
+   "want": "Ottawa",
+   "content": "Ottawa",
+   "ok": true,
+   "completion_tokens": 20
+  },
+  {
+   "kind": "capital Australia",
+   "prompt": "What is the capital of Australia? Reply with the city name only.",
+   "want": "Canberra",
+   "content": "Canberra",
+   "ok": true,
+   "completion_tokens": 24
+  },
+  {
+   "kind": "capital Brazil",
+   "prompt": "What is the capital of Brazil? Reply with the city name only.",
+   "want": "Bras\u00edlia",
+   "content": "Bras\u00edlia",
+   "ok": true,
+   "completion_tokens": 22
+  },
+  {
+   "kind": "capital Kenya",
+   "prompt": "What is the capital of Kenya? Reply with the city name only.",
+   "want": "Nairobi",
+   "content": "Nairobi",
+   "ok": true,
+   "completion_tokens": 24
+  },
+  {
+   "kind": "capital Norway",
+   "prompt": "What is the capital of Norway? Reply with the city name only.",
+   "want": "Oslo",
+   "content": "Oslo",
+   "ok": true,
+   "completion_tokens": 18
+  },
+  {
+   "kind": "capital Egypt",
+   "prompt": "What is the capital of Egypt? Reply with the city name only.",
+   "want": "Cairo",
+   "content": "Cairo",
+   "ok": true,
+   "completion_tokens": 18
+  },
+  {
+   "kind": "capital Peru",
+   "prompt": "What is the capital of Peru? Reply with the city name only.",
+   "want": "Lima",
+   "content": "Lima",
+   "ok": true,
+   "completion_tokens": 3
+  },
+  {
+   "kind": "capital Vietnam",
+   "prompt": "What is the capital of Vietnam? Reply with the city name only.",
+   "want": "Hanoi",
+   "content": "Hanoi",
+   "ok": true,
+   "completion_tokens": 4
+  }
+ ]
+}

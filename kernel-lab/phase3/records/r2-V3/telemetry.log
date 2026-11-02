@@ -2,3 +2,38 @@
 208 MHz, 3003 MHz, 56, 0 %, 4.65 W
 MemAvailable:   122653828 kB
 SwapFree:       16777212 kB
+=== post-start 2026-11-02T14:35:47-03:00 ===
+2184 MHz, 3003 MHz, 62, 0 %, 10.55 W
+1472658, 83784 MiB
+MemAvailable:   26295732 kB
+SwapFree:       16777212 kB
+=== pre-decode 2026-11-02T14:35:47-03:00 ===
+2184 MHz, 3003 MHz, 62, 0 %, 10.52 W
+1472658, 83784 MiB
+MemAvailable:   26281264 kB
+SwapFree:       16777212 kB
+=== post-decode 2026-11-02T14:38:26-03:00 ===
+2184 MHz, 3003 MHz, 74, 96 %, 40.62 W
+1472658, 83786 MiB
+MemAvailable:   26918552 kB
+SwapFree:       16777212 kB
+=== pre-p128 2026-11-02T14:38:26-03:00 ===
+2184 MHz, 3003 MHz, 74, 96 %, 39.36 W
+1472658, 83786 MiB
+MemAvailable:   26940440 kB
+SwapFree:       16777212 kB
+=== post-p128 2026-11-02T14:40:21-03:00 ===
+2177 MHz, 3003 MHz, 76, 96 %, 43.61 W
+1472658, 87748 MiB
+MemAvailable:   22566588 kB
+SwapFree:       16777212 kB
+=== pre-check 2026-11-02T14:40:21-03:00 ===
+2177 MHz, 3003 MHz, 76, 96 %, 40.68 W
+1472658, 87748 MiB
+MemAvailable:   22534536 kB
+SwapFree:       16777212 kB
+=== post-check 2026-11-02T14:40:24-03:00 ===
+2184 MHz, 3003 MHz, 76, 93 %, 37.83 W
+1472658, 87750 MiB
+MemAvailable:   22467708 kB
+SwapFree:       16777212 kB

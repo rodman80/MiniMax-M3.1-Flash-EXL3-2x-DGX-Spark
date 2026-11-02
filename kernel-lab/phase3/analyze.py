@@ -23,7 +23,8 @@ LABEL = {
 
 def load(cell, step):
     out = []
-    for d in sorted(glob.glob(os.path.join(REC, f"r*-{cell}", step, "results.json"))):
+    for d in sorted(glob.glob(os.path.join(REC, f"r*-{cell}", step, "results.json"))) + \
+                  sorted(glob.glob(os.path.join(REC, f"final-{cell}", step, "results.json"))):
         try:
             out.append(json.load(open(d)))
         except Exception:
@@ -32,25 +33,30 @@ def load(cell, step):
 
 
 def decode_table():
-    print("## Decode (tok/s; higher is better)\n")
-    print("| cell | conc | type | agg tok/s (rounds) | median | per-stream med | TTFT med s | errors |")
-    print("|---|---|---|---|---|---|---|---|")
+    print("## Decode (tok/s; higher is better). 'w' = measurement window in seconds\n")
+    print("| cell | conc | type | agg tok/s per sample (w) | median | median (90 s only) | per-stream med | TTFT med s | errors |")
+    print("|---|---|---|---|---|---|---|---|---|")
     agg = {}
     for cell in CELLS:
-        for res in load(cell, "decode"):
+        for d in sorted(glob.glob(os.path.join(REC, f"r*-{cell}", "decode", "results.json"))) + \
+                  sorted(glob.glob(os.path.join(REC, f"final-{cell}", "decode90", "results.json"))):
+            res = json.load(open(d))
+            w = 90 if "decode90" in d else 30
             for c in res["result"]["cells"]:
-                k = (cell, c["concurrency"], c["prompt_type"])
-                agg.setdefault(k, []).append(c)
+                agg.setdefault((cell, c["concurrency"], c["prompt_type"]), []).append(
+                    (c["agg_tok_s"], w, c))
     for k in sorted(agg):
         cell, conc, typ = k
         cs = agg[k]
-        vals = [c["agg_tok_s"] for c in cs]
-        med = statistics.median(vals)
-        agg[k] = med
-        print(f"| {cell} | {conc} | {typ} | {['%.1f' % v for v in vals]} | **{med:.1f}** "
-              f"| {statistics.median([c['per_stream_tok_s_median'] for c in cs]):.1f} "
-              f"| {statistics.median([c['ttft_s_median'] for c in cs]):.2f} "
-              f"| {sum(c['errors'] for c in cs)} |")
+        vals = [v for v, w, c in cs]
+        long90 = [v for v, w, c in cs if w == 90]
+        agg[k] = statistics.median(vals)
+        print(f"| {cell} | {conc} | {typ} | {['%.1f/%ds' % (v, w) for v, w, c in cs]} "
+              f"| **{statistics.median(vals):.1f}** "
+              f"| {('%.1f' % statistics.median(long90)) if long90 else '-'} "
+              f"| {statistics.median([c['per_stream_tok_s_median'] for v, w, c in cs]):.1f} "
+              f"| {statistics.median([c['ttft_s_median'] for v, w, c in cs]):.2f} "
+              f"| {sum(c['errors'] for v, w, c in cs)} |")
     return agg
 
 
@@ -129,6 +135,26 @@ def spec_table():
         print(json.dumps(rs[-1]["result"], indent=1)[:700])
 
 
+def extras():
+    print("\n## Natural-text long prefill (real prose, not the bench's random-word filler)\n")
+    print("| cell | prompt tokens | TTFT s | tok/s |")
+    print("|---|---|---|---|")
+    for cell in ("V0", "V1"):
+        for d in sorted(glob.glob(os.path.join(REC, f"natural-{cell}", "results.json"))):
+            for r in json.load(open(d))["rows"]:
+                print(f"| {cell} | {r.get('prompt_tokens')} | {r.get('ttft_s')} | {r.get('tok_s')} |")
+    print("\n## Mixed load: 4 decode streams with a ~136K-token prefill arriving mid-window\n")
+    print("| cell | long-prefill TTFT s | decode agg tok/s in window | ITL before ms | ITL during ms | stall factor |")
+    print("|---|---|---|---|---|---|")
+    for cell in ("V0", "V1", "V2"):
+        for d in sorted(glob.glob(os.path.join(REC, f"final-{cell}", "mixed", "results.json")) +
+                        glob.glob(os.path.join(REC, "mixed-V1", "results.json"))):
+            r = json.load(open(d))
+            b, a = r["itl_before_median_ms"], r["itl_after_median_ms"]
+            print(f"| {cell} | {r['prefill'].get('ttft_s')} | {r['decode_agg_tok_s']} | {b} | {a} "
+                  f"| {a / b:.1f}x |")
+
+
 def main():
     print(f"records: {REC}")
     for d in sorted(glob.glob(os.path.join(REC, "r*-*"))):
@@ -140,6 +166,7 @@ def main():
     ratios(dec, pre, ttft)
     nll_table()
     spec_table()
+    extras()
 
 
 if __name__ == "__main__":

@@ -1,15 +1,40 @@
-14:33:29 WARNING: profile q4-300k is UNMEASURED; do not publish its numbers
-wrote /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-143329/fabric.json
-14:33:33 launching both ranks in parallel
-c79d261a319e40fbfd23e55753f01a5dd97bebcc4d26c4beffbad0c23c16873e
-8deb2cda05e3e07f0edfe0eca34db8fbc424298938c780f9c7d67a5ef88a74e9
-14:33:45 waiting for /v1/models (12.2s since launch; code=000)
-14:33:54 rank 0 container exited; last log lines:
-Error response from daemon: No such container: m31-flash-tp2
-2026-11-02T14:22:31-03:00 guard: watching m31-flash-tp2 (started after 1s)
-2026-11-02T14:33:04-03:00 guard: container m31-flash-tp2 is gone; exiting
-2026-11-02T14:33:33-03:00 guard: armed pid=1463504 floor=2097152KiB steady=1048576KiB swap_max=65536KiB drop_every=20s
-2026-11-02T14:33:34-03:00 guard: watching m31-flash-tp2 (started after 1s)
-2026-11-02T14:33:50-03:00 guard: stopped pid=1463504
-14:33:56 stopped m31-flash-tp2 on both nodes
-14:33:56 FAIL: start failed (rank 0; full logs in /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-143329/rank0.log, rank1.log)
+16:42:31 WARNING: profile q4-300k is UNMEASURED; do not publish its numbers
+wrote /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-164231/fabric.json
+16:42:35 launching both ranks in parallel
+7434783efa62a0c5d7178da31d5ead28a63d06522aa73223566998b5867b5025
+ac0aadc532706f90f8c2fa31cf98b561737d5855add387e3c1220df4aba78d21
+16:42:48 waiting for /v1/models (12.2s since launch; code=000)
+16:42:57 waiting for /v1/models (21.8s since launch; code=000)
+16:43:08 waiting for /v1/models (33.1s since launch; code=000)
+16:43:17 waiting for /v1/models (41.6s since launch; code=000)
+16:43:27 waiting for /v1/models (52.0s since launch; code=000)
+16:43:38 waiting for /v1/models (62.5s since launch; code=000)
+16:43:47 waiting for /v1/models (71.9s since launch; code=000)
+16:43:58 waiting for /v1/models (82.2s since launch; code=000)
+16:44:07 waiting for /v1/models (91.7s since launch; code=000)
+16:44:18 waiting for /v1/models (102.9s since launch; code=000)
+16:44:28 waiting for /v1/models (112.6s since launch; code=000)
+16:44:38 waiting for /v1/models (122.2s since launch; code=000)
+16:44:47 waiting for /v1/models (131.9s since launch; code=000)
+16:44:59 waiting for /v1/models (143.2s since launch; code=000)
+16:45:07 waiting for /v1/models (151.9s since launch; code=000)
+16:45:19 waiting for /v1/models (163.5s since launch; code=000)
+16:45:27 waiting for /v1/models (172.1s since launch; code=000)
+16:45:38 waiting for /v1/models (182.5s since launch; code=000)
+16:45:47 waiting for /v1/models (191.9s since launch; code=000)
+16:45:58 waiting for /v1/models (202.4s since launch; code=000)
+16:46:07 waiting for /v1/models (211.8s since launch; code=000)
+16:46:10 endpoint up after 216.9s (engine 212.9s after launch); ready MemAvailable rank0 26.07 GiB, rank1 28.05 GiB
+16:46:10 kv: (Worker_TP0 pid=247) INFO 11-02 19:45:58 [gpu_worker.py:677] Initial free memory 110.28 GiB, reserved 18.63 GiB memory for KV Cache as specified by kv_cache_memory_bytes config and skipped memory profiling. This does not respect the gpu_memory_utilization config. Only use kv_cache_memory_bytes config when you want manual control of KV cache memory size. If OOM'ed, check the difference of initial free memory between the current run and the previous run where kv_cache_memory_bytes is suggested and update it correspondingly.
+(EngineCore pid=175) WARNING 11-02 19:45:58 [kv_cache_planning.py:870] Hybrid KV cache manager is disabled for this hybrid model, This means we do not enable any optimizations for saving KV cache memory (e.g., dropping the KV cache outside the sliding window). The compute of layers like sliding window is still saved.
+(EngineCore pid=175) INFO 11-02 19:45:58 [kv_cache_utils.py:1104] GPU KV cache size: 664,761 tokens, Maximum concurrency for 300,000 tokens per request: 2.22x
+16:46:10 warm-up (short chat + ~2.4K-token prompt, max_tokens 32) alongside smoke
+warmup short: 0.8s, prompt 199 tokens
+warmup long: 3.5s, prompt 2381 tokens
+PASS 1 chat
+PASS 2 tool call
+PASS 3 reasoning separation
+SMOKE PASS: chat, tool call, reasoning separated
+PASS mixed-K dispatch: unified
+READY: minimax-m3.1-flash at http://10.100.24.2:8000 in 224.0s (run dir /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-164231)
+next : ./m31.sh bench all

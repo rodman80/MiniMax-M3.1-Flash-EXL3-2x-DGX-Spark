@@ -1,0 +1,40 @@
+14:40:54 WARNING: profile q4-300k is UNMEASURED; do not publish its numbers
+wrote /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-144054/fabric.json
+14:40:58 launching both ranks in parallel
+b84504913143bdb312d520d08ed916a3a6f729e180f84e4d34262b43cea1cb0e
+74bcf551ecc419b53ee3901df9ed8df02b37683a9cb83256890c00e4bdaeb0eb
+14:41:09 waiting for /v1/models (11.1s since launch; code=000)
+14:41:19 waiting for /v1/models (21.6s since launch; code=000)
+14:41:29 waiting for /v1/models (31.6s since launch; code=000)
+14:41:40 waiting for /v1/models (42.4s since launch; code=000)
+14:41:50 waiting for /v1/models (51.8s since launch; code=000)
+14:41:59 waiting for /v1/models (61.1s since launch; code=000)
+14:42:09 waiting for /v1/models (71.6s since launch; code=000)
+14:42:20 waiting for /v1/models (81.9s since launch; code=000)
+14:42:29 waiting for /v1/models (91.7s since launch; code=000)
+14:42:39 waiting for /v1/models (101.1s since launch; code=000)
+14:42:50 waiting for /v1/models (112.4s since launch; code=000)
+14:43:00 waiting for /v1/models (122.0s since launch; code=000)
+14:43:10 waiting for /v1/models (131.8s since launch; code=000)
+14:43:19 waiting for /v1/models (141.4s since launch; code=000)
+14:43:30 waiting for /v1/models (152.3s since launch; code=000)
+14:43:39 waiting for /v1/models (161.7s since launch; code=000)
+14:43:49 waiting for /v1/models (171.3s since launch; code=000)
+14:44:00 waiting for /v1/models (182.0s since launch; code=000)
+14:44:09 waiting for /v1/models (191.5s since launch; code=000)
+14:44:20 waiting for /v1/models (202.0s since launch; code=000)
+14:44:29 waiting for /v1/models (211.3s since launch; code=000)
+14:44:32 endpoint up after 216.3s (engine 212.3s after launch); ready MemAvailable rank0 26.18 GiB, rank1 28.04 GiB
+14:44:32 kv: (Worker_TP0 pid=246) INFO 11-02 17:44:20 [gpu_worker.py:677] Initial free memory 110.18 GiB, reserved 18.63 GiB memory for KV Cache as specified by kv_cache_memory_bytes config and skipped memory profiling. This does not respect the gpu_memory_utilization config. Only use kv_cache_memory_bytes config when you want manual control of KV cache memory size. If OOM'ed, check the difference of initial free memory between the current run and the previous run where kv_cache_memory_bytes is suggested and update it correspondingly.
+(EngineCore pid=174) WARNING 11-02 17:44:20 [kv_cache_planning.py:870] Hybrid KV cache manager is disabled for this hybrid model, This means we do not enable any optimizations for saving KV cache memory (e.g., dropping the KV cache outside the sliding window). The compute of layers like sliding window is still saved.
+(EngineCore pid=174) INFO 11-02 17:44:20 [kv_cache_utils.py:1104] GPU KV cache size: 664,761 tokens, Maximum concurrency for 300,000 tokens per request: 2.22x
+14:44:32 warm-up (short chat + ~2.4K-token prompt, max_tokens 32) alongside smoke
+warmup short: 0.8s, prompt 199 tokens
+warmup long: 3.5s, prompt 2381 tokens
+PASS 1 chat
+PASS 2 tool call
+PASS 3 reasoning separation
+SMOKE PASS: chat, tool call, reasoning separated
+PASS mixed-K dispatch: unified
+READY: minimax-m3.1-flash at http://10.100.24.2:8000 in 223.9s (run dir /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/runs/20261102-144054)
+next : ./m31.sh bench all

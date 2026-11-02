@@ -1,0 +1,19 @@
+=== pre-start 2026-11-02T15:35:48-03:00 ===
+208 MHz, 3003 MHz, 56, 0 %, 4.75 W
+MemAvailable:   122827516 kB
+SwapFree:       16777212 kB
+=== post-start 2026-11-02T15:39:51-03:00 ===
+2184 MHz, 3003 MHz, 57, 0 %, 9.71 W
+1953694, 83812 MiB
+MemAvailable:   26795080 kB
+SwapFree:       16777212 kB
+=== pre-decode 2026-11-02T15:39:51-03:00 ===
+2184 MHz, 3003 MHz, 57, 0 %, 9.75 W
+1953694, 83812 MiB
+MemAvailable:   26810508 kB
+SwapFree:       16777212 kB
+=== post-decode 2026-11-02T15:42:51-03:00 ===
+2184 MHz, 3003 MHz, 74, 95 %, 40.38 W
+1953694, 83814 MiB
+MemAvailable:   26678612 kB
+SwapFree:       16777212 kB

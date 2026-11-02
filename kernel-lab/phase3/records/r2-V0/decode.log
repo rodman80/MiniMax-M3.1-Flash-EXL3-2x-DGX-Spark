@@ -1,0 +1,6 @@
+decode: 30.0s windows, temperature 0, max_tokens 512
+  c=1  prose         28.1 tok/s agg  per-stream  29.06  TTFT   0.66s  req   2  err 0
+  c=1  code          31.8 tok/s agg  per-stream  33.12  TTFT   0.69s  req   2  err 0
+  c=4  prose         52.5 tok/s agg  per-stream  17.34  TTFT   1.24s  req   5  err 0
+  c=4  code          76.0 tok/s agg  per-stream  20.27  TTFT   1.18s  req   8  err 0
+decode: /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/kernel-lab/phase3/records/r2-V0/decode

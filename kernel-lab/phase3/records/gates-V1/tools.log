@@ -1,0 +1,28 @@
+  PASS weather_required
+  PASS weather_enum
+  PASS search_limit
+  PASS email_required
+  PASS email_cc_array
+  FAIL order_integer: no call to create_order; got ['run_sql']
+  PASS order_nested
+  PASS translate_enum
+  PASS sql_true
+  PASS multi_tool
+  PASS two_cities
+  PASS weather_fahrenheit
+  PASS search_integer
+  PASS email_body
+  PASS email_cc_two
+  PASS order_two_skus
+  FAIL order_standard: no call to create_order; got ['run_sql', 'run_sql']
+  PASS translate_german
+  PASS translate_spanish
+  PASS sql_false
+  PASS three_tools
+  PASS search_phrase
+  PASS email_no_cc
+  PASS search_limit_one
+  PASS no_tool
+  PASS tool_result_followup
+  PASS tool_error_recovery
+toolgate 25/27

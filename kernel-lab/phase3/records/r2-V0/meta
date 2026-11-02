@@ -1,0 +1,4 @@
+start rc=0 wall=218s
+decode rc=0 wall=172s
+p128 rc=0 wall=243s
+check rc=0 wall=3s
