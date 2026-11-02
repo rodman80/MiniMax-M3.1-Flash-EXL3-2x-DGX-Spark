@@ -280,6 +280,10 @@ mandatory. If `start` dies with `GUARD KILL`, read `~/m31/run/guard.log` and the
   test.
 - **Adaptive thinking** means output length, and therefore tok/s, depends on the prompt. Every bench pins
   temperature 0 and sends no thinking flag.
+- **One engine.** This recipe serves through vLLM plus the `vllm-exl3` plugin. A TensorFold-based lane was evaluated
+  and is not implemented: it needs a different checkpoint (the engine's loader refuses this lane's pack), and its
+  exact bf16 KV cache at 75 KiB a token a rank cannot reach this recipe's 300,000-token × 6-stream profile. See
+  [`docs/TENSORFOLD_LANE.md`](docs/TENSORFOLD_LANE.md).
 
 ## Credits
 
