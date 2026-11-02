@@ -6,3 +6,8 @@ __pycache__/
 *.pyc
 .ruff_cache/
 *.download.log
+
+__pycache__/
+*.pyc
+kernel-lab/_vendor/
+kernel-lab/fixtures/pack_shapes_full.json

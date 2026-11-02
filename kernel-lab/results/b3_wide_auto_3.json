@@ -1,0 +1,169 @@
+{
+ "env": {
+  "ts": "2026-11-02T15:06:43+0000",
+  "gpu": "NVIDIA GB10",
+  "cc": "sm_121",
+  "sms": 48,
+  "l2_mib": 24.0,
+  "total_mem_mib": 124608,
+  "torch": "2.14.0+cu130",
+  "cuda": "13.0",
+  "triton": "3.8.0",
+  "nvcc": "Build cuda_13.4.r13.4/compiler.38855100_0",
+  "python": "3.12.3",
+  "driver": [
+   12,
+   1
+  ],
+  "image": "",
+  "clock_mhz": {
+   "raw": "2184 MHz, 3003 MHz, 60, 96 %"
+  },
+  "neighbours": {
+   "compute_apps": [
+    "1, 5194 MiB"
+   ]
+  }
+ },
+ "wide": null,
+ "bandwidth_probe": {
+  "read_GBps": 240.7,
+  "bytes_MiB": 512,
+  "median_us": 2230.62,
+  "spread_pct": 1.7
+ },
+ "rows": [
+  {
+   "rows": 1,
+   "family": "indep",
+   "distinct": 4,
+   "weight_MiB": 54.2,
+   "us": 311.38,
+   "p10": 308.9,
+   "p90": 317.6,
+   "spread_pct": 59.6,
+   "GBps": 182.6,
+   "pct_of_ceiling": 75.8,
+   "ref_rel_l2": 0.0008606398478150368,
+   "ref_max_abs": 0.0003752298653125763
+  },
+  {
+   "rows": 1,
+   "family": "corr0.5",
+   "distinct": 4,
+   "weight_MiB": 54.2,
+   "us": 311.89,
+   "p10": 308.54,
+   "p90": 342.3,
+   "spread_pct": 64.2,
+   "GBps": 182.3,
+   "pct_of_ceiling": 75.7,
+   "ref_rel_l2": 0.0008646138594485819,
+   "ref_max_abs": 0.00035172514617443085
+  },
+  {
+   "rows": 4,
+   "family": "indep",
+   "distinct": 15,
+   "weight_MiB": 207.8,
+   "us": 1093.31,
+   "p10": 1089.5,
+   "p90": 1186.69,
+   "spread_pct": 34.8,
+   "GBps": 199.3,
+   "pct_of_ceiling": 82.8,
+   "ref_rel_l2": 0.0008730113040655851,
+   "ref_max_abs": 0.0004531592130661011
+  },
+  {
+   "rows": 4,
+   "family": "corr0.5",
+   "distinct": 9,
+   "weight_MiB": 122.0,
+   "us": 692.32,
+   "p10": 689.22,
+   "p90": 797.86,
+   "spread_pct": 53.0,
+   "GBps": 184.7,
+   "pct_of_ceiling": 76.8,
+   "ref_rel_l2": 0.0008772827568463981,
+   "ref_max_abs": 0.0004102196544408798
+  },
+  {
+   "rows": 8,
+   "family": "indep",
+   "distinct": 27,
+   "weight_MiB": 374.9,
+   "us": 1823.95,
+   "p10": 1794.02,
+   "p90": 2175.84,
+   "spread_pct": 28.8,
+   "GBps": 215.5,
+   "pct_of_ceiling": 89.5,
+   "ref_rel_l2": 0.0008653850527480245,
+   "ref_max_abs": 0.0004151761531829834
+  },
+  {
+   "rows": 8,
+   "family": "corr0.5",
+   "distinct": 19,
+   "weight_MiB": 262.0,
+   "us": 1266.56,
+   "p10": 1261.7,
+   "p90": 1476.58,
+   "spread_pct": 32.5,
+   "GBps": 216.9,
+   "pct_of_ceiling": 90.1,
+   "ref_rel_l2": 0.0008586776675656438,
+   "ref_max_abs": 0.0004961937665939331
+  },
+  {
+   "rows": 16,
+   "family": "indep",
+   "distinct": 52,
+   "weight_MiB": 718.2,
+   "us": 3358.59,
+   "p10": 3351.65,
+   "p90": 3425.5,
+   "spread_pct": 19.0,
+   "GBps": 224.2,
+   "pct_of_ceiling": 93.2
+  },
+  {
+   "rows": 16,
+   "family": "corr0.5",
+   "distinct": 29,
+   "weight_MiB": 404.3,
+   "us": 1998.42,
+   "p10": 1994.72,
+   "p90": 2005.15,
+   "spread_pct": 1.0,
+   "GBps": 212.1,
+   "pct_of_ceiling": 88.1
+  },
+  {
+   "rows": 24,
+   "family": "indep",
+   "distinct": 69,
+   "weight_MiB": 962.1,
+   "us": 4546.46,
+   "p10": 4495.2,
+   "p90": 5230.98,
+   "spread_pct": 35.7,
+   "GBps": 221.9,
+   "pct_of_ceiling": 92.2
+  },
+  {
+   "rows": 24,
+   "family": "corr0.5",
+   "distinct": 34,
+   "weight_MiB": 467.5,
+   "us": 2515.71,
+   "p10": 2511.84,
+   "p90": 2526.05,
+   "spread_pct": 6.0,
+   "GBps": 194.9,
+   "pct_of_ceiling": 81.0
+  }
+ ]
+}

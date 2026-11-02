@@ -1,0 +1,153 @@
+{
+ "env": {
+  "ts": "2026-11-02T15:12:38+0000",
+  "gpu": "NVIDIA GB10",
+  "cc": "sm_121",
+  "sms": 48,
+  "l2_mib": 24.0,
+  "total_mem_mib": 124608,
+  "torch": "2.14.0+cu130",
+  "cuda": "13.0",
+  "triton": "3.8.0",
+  "nvcc": "Build cuda_13.4.r13.4/compiler.38855100_0",
+  "python": "3.12.3",
+  "driver": [
+   12,
+   1
+  ],
+  "image": "",
+  "clock_mhz": {
+   "raw": "2190 MHz, 3003 MHz, 50, 0 %"
+  },
+  "neighbours": {
+   "compute_apps": [
+    "1, 252 MiB"
+   ]
+  }
+ },
+ "bandwidth_GBps": 239.0,
+ "bf16_ceiling_TFLOPS": 91.6,
+ "index_heads_per_rank": 2,
+ "rows": [
+  {
+   "shape": "16k_chunk",
+   "rows": 16384,
+   "prefix": 0,
+   "max_block": 128,
+   "score_MiB": 16.0,
+   "score_us": 1245.66,
+   "topk_us": 287.36,
+   "both_us": 1463.58,
+   "p10": 1434.11,
+   "p90": 1550.53,
+   "spread_pct": 11.8,
+   "score_GBps": 13.5,
+   "score_TFLOPS": 110.3,
+   "score_pct_of_gemm_ceiling": 120.5,
+   "topk_GBps": 58.4,
+   "traffic_floor_us": 140.4,
+   "topk_share_pct": 19.6
+  },
+  {
+   "shape": "16k_at_48k",
+   "rows": 16384,
+   "prefix": 49152,
+   "max_block": 512,
+   "score_MiB": 64.0,
+   "score_us": 7773.38,
+   "topk_us": 1555.87,
+   "both_us": 9285.09,
+   "p10": 9087.87,
+   "p90": 9588.26,
+   "spread_pct": 5.7,
+   "score_GBps": 8.6,
+   "score_TFLOPS": 70.7,
+   "score_pct_of_gemm_ceiling": 77.2,
+   "topk_GBps": 43.1,
+   "traffic_floor_us": 561.6,
+   "topk_share_pct": 16.8
+  },
+  {
+   "shape": "16k_at_192k",
+   "rows": 16384,
+   "prefix": 196608,
+   "max_block": 1664,
+   "score_MiB": 208.0,
+   "score_us": 26853.6,
+   "topk_us": 5359.07,
+   "both_us": 32645.18,
+   "p10": 32070.98,
+   "p90": 34144.8,
+   "spread_pct": 17.0,
+   "score_GBps": 8.1,
+   "score_TFLOPS": 66.5,
+   "score_pct_of_gemm_ceiling": 72.6,
+   "topk_GBps": 40.7,
+   "traffic_floor_us": 1825.1,
+   "topk_share_pct": 16.4
+  },
+  {
+   "shape": "8k_at_56k",
+   "rows": 8192,
+   "prefix": 57344,
+   "max_block": 512,
+   "score_MiB": 32.0,
+   "score_us": 4305.09,
+   "topk_us": 845.22,
+   "both_us": 5124.38,
+   "p10": 5110.98,
+   "p90": 5423.2,
+   "spread_pct": 8.6,
+   "score_GBps": 7.8,
+   "score_TFLOPS": 63.8,
+   "score_pct_of_gemm_ceiling": 69.7,
+   "topk_GBps": 39.7,
+   "traffic_floor_us": 280.8,
+   "topk_share_pct": 16.5
+  },
+  {
+   "shape": "decode_b1_q1_seq65536",
+   "rows": 1,
+   "prefix": 65535,
+   "max_block": 512,
+   "score_MiB": 0.0,
+   "score_us": 34.24,
+   "topk_us": 30.5,
+   "both_us": 64.77,
+   "spread_pct": 10.9
+  },
+  {
+   "shape": "decode_b1_q4_seq65536",
+   "rows": 4,
+   "prefix": 65532,
+   "max_block": 512,
+   "score_MiB": 0.0,
+   "score_us": 34.94,
+   "topk_us": 29.6,
+   "both_us": 64.58,
+   "spread_pct": 57.4
+  },
+  {
+   "shape": "decode_b1_q4_seq262144",
+   "rows": 4,
+   "prefix": 262140,
+   "max_block": 2048,
+   "score_MiB": 0.1,
+   "score_us": 314.62,
+   "topk_us": 9.1,
+   "both_us": 323.68,
+   "spread_pct": 2.6
+  },
+  {
+   "shape": "decode_b6_q4_seq65536",
+   "rows": 24,
+   "prefix": 65532,
+   "max_block": 512,
+   "score_MiB": 0.1,
+   "score_us": 99.62,
+   "topk_us": 8.2,
+   "both_us": 107.84,
+   "spread_pct": 4.8
+  }
+ ]
+}

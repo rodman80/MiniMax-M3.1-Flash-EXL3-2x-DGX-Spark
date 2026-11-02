@@ -1,0 +1,137 @@
+{
+ "env": {
+  "ts": "2026-11-02T15:04:01+0000",
+  "gpu": "NVIDIA GB10",
+  "cc": "sm_121",
+  "sms": 48,
+  "l2_mib": 24.0,
+  "total_mem_mib": 124608,
+  "torch": "2.14.0+cu130",
+  "cuda": "13.0",
+  "triton": "3.8.0",
+  "nvcc": "Build cuda_13.4.r13.4/compiler.38855100_0",
+  "python": "3.12.3",
+  "driver": [
+   12,
+   1
+  ],
+  "image": "",
+  "clock_mhz": {
+   "raw": "2177 MHz, 3003 MHz, 53, 96 %"
+  },
+  "neighbours": {
+   "compute_apps": [
+    "1, 2218 MiB"
+   ]
+  }
+ },
+ "knobs": {
+  "EXL3_MOE_COOP_KSPLIT": null,
+  "EXL3_MOE_COOP_DSPLIT": null,
+  "EXL3_MOE_COOP_WIDE": "0"
+ },
+ "bandwidth_probe": {
+  "read_GBps": 232.1,
+  "bytes_MiB": 512,
+  "median_us": 2313.46,
+  "spread_pct": 21.9
+ },
+ "rows": [
+  {
+   "rows": 1,
+   "family": "indep",
+   "distinct": 4,
+   "weight_MiB": 54.2,
+   "us": 318.77,
+   "p10": 317.47,
+   "p90": 321.5,
+   "spread_pct": 3.0,
+   "GBps": 178.3,
+   "pct_of_ceiling": 76.8
+  },
+  {
+   "rows": 1,
+   "family": "corr0.5",
+   "distinct": 4,
+   "weight_MiB": 54.2,
+   "us": 321.07,
+   "p10": 318.82,
+   "p90": 414.56,
+   "spread_pct": 61.8,
+   "GBps": 177.0,
+   "pct_of_ceiling": 76.3
+  },
+  {
+   "rows": 4,
+   "family": "indep",
+   "distinct": 15,
+   "weight_MiB": 207.8,
+   "us": 1142.43,
+   "p10": 1136.83,
+   "p90": 1334.3,
+   "spread_pct": 34.7,
+   "GBps": 190.7,
+   "pct_of_ceiling": 82.2
+  },
+  {
+   "rows": 4,
+   "family": "corr0.5",
+   "distinct": 9,
+   "weight_MiB": 122.0,
+   "us": 721.14,
+   "p10": 718.21,
+   "p90": 793.86,
+   "spread_pct": 48.0,
+   "GBps": 177.4,
+   "pct_of_ceiling": 76.4
+  },
+  {
+   "rows": 16,
+   "family": "indep",
+   "distinct": 52,
+   "weight_MiB": 718.2,
+   "us": 3886.22,
+   "p10": 3858.88,
+   "p90": 4207.39,
+   "spread_pct": 12.0,
+   "GBps": 193.8,
+   "pct_of_ceiling": 83.5
+  },
+  {
+   "rows": 16,
+   "family": "corr0.5",
+   "distinct": 29,
+   "weight_MiB": 404.3,
+   "us": 2428.24,
+   "p10": 2409.18,
+   "p90": 2870.62,
+   "spread_pct": 22.7,
+   "GBps": 174.6,
+   "pct_of_ceiling": 75.2
+  },
+  {
+   "rows": 24,
+   "family": "indep",
+   "distinct": 69,
+   "weight_MiB": 962.1,
+   "us": 5222.59,
+   "p10": 5203.2,
+   "p90": 5844.9,
+   "spread_pct": 14.3,
+   "GBps": 193.2,
+   "pct_of_ceiling": 83.2
+  },
+  {
+   "rows": 24,
+   "family": "corr0.5",
+   "distinct": 34,
+   "weight_MiB": 467.5,
+   "us": 3072.29,
+   "p10": 3063.2,
+   "p90": 3079.17,
+   "spread_pct": 0.8,
+   "GBps": 159.6,
+   "pct_of_ceiling": 68.8
+  }
+ ]
+}
