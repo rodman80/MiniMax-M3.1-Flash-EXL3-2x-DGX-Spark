@@ -78,6 +78,8 @@
   "verified": "40 arquivos com sha256 conferido nos dois nos"
  },
  "profile": "q4-300k",
+ "raw_logs": "decode-*/spec-* sao o stdout capturado pelos drivers scripts/sweep_dflash.sh e scripts/confirm_drafter.sh; os numeros citados estao tambem em drafter-sweep.json",
+ "reference_json": "reference.json e a referencia de NLL teacher-forced contra a qual os 'bench check' dos registros comparam (escrita em 2026-11-01 com DSpark)",
  "serving": {
   "draft_attn_backend": "TRITON_ATTN",
   "draft_kv_dtype": "fp8",

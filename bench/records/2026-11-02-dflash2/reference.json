@@ -1,0 +1,36 @@
+{
+ "model": "minimax-m3.1-flash",
+ "kind": "teacher-forced-nll",
+ "passages": [
+  {
+   "label": "prose",
+   "tokens": 86,
+   "mean_nll": 3.831313
+  },
+  {
+   "label": "code",
+   "tokens": 129,
+   "mean_nll": 3.260148
+  },
+  {
+   "label": "math",
+   "tokens": 74,
+   "mean_nll": 4.958333
+  },
+  {
+   "label": "json",
+   "tokens": 45,
+   "mean_nll": 10.547562
+  },
+  {
+   "label": "reasoning",
+   "tokens": 48,
+   "mean_nll": 5.656202
+  },
+  {
+   "label": "dialogue",
+   "tokens": 32,
+   "mean_nll": 6.888125
+  }
+ ]
+}

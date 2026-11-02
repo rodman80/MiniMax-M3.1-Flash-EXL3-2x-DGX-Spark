@@ -1,0 +1,5 @@
+  c=1  prose         26.8 tok/s agg  per-stream  27.74  TTFT   0.65s  req   2  err 0
+  prose      accepted/step 1.176595744680851  accept 0.29414893617021276
+  c=1  code          34.7 tok/s agg  per-stream  36.63  TTFT   0.70s  req   3  err 0
+  code       accepted/step 1.9729206963249517  accept 0.4932301740812379
+spec: /home/rodman/llm/MiniMax-M3.1-Flash-EXL3-2x-DGX-Spark/bench/runs/2026-11-02-000125-spec
