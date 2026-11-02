@@ -101,6 +101,11 @@ DRAFT_ATTN_BACKEND="${DRAFT_ATTN_BACKEND:-TRITON_ATTN}"
 DRAFT_KV_DTYPE="${DRAFT_KV_DTYPE:-fp8}"
 DRAFT_SAMPLE="${DRAFT_SAMPLE:-probabilistic}"
 REJECTION_SAMPLE="${REJECTION_SAMPLE:-block}"
+# Backend for MXFP8-quantised linears (the sparse-attention indexer, and the DSpark drafter
+# when it is served). marlin is what the recipe qualified: weight-only with bf16 activations,
+# and at decode M its GEMMs ran ~2x faster than flashinfer's cutlass MXFP8 (W8A8) kernel. b12x
+# is this engine's SM12x-native family, so it is the one worth comparing against marlin here.
+LINEAR_BACKEND_MXFP8="${LINEAR_BACKEND_MXFP8:-marlin}"
 EAGER="${EAGER:-0}"
 CAPTURE_SIZES="${CAPTURE_SIZES:-}"
 COMPILE_MODE="${COMPILE_MODE:-0}"
@@ -420,9 +425,9 @@ cmd_print_serve() {
     --gpu-memory-utilization "$GPU_MEMORY_UTILIZATION"
     --kv-cache-memory-bytes "$KVB" --kv-cache-dtype "$KV_CACHE_DTYPE"
     --attention-config "{\"indexer_kv_dtype\":\"$INDEXER_KV_DTYPE\"}"
-    # MXFP8 linears (DSpark drafter, indexer) on Marlin: weight-only, bf16 activations, and at
-    # decode M the drafter GEMMs run ~2x faster than flashinfer's cutlass MXFP8 (W8A8) kernel.
-    --kernel-config '{"enable_flashinfer_autotune":false,"linear_backend_per_quant":{"mxfp8":"marlin"}}'
+    # MXFP8 linears (indexer; also the DSpark drafter when served). The backend is pinned by
+    # LINEAR_BACKEND_MXFP8 - see its comment in the configuration block.
+    --kernel-config "{\"enable_flashinfer_autotune\":false,\"linear_backend_per_quant\":{\"mxfp8\":\"$LINEAR_BACKEND_MXFP8\"}}"
     --reasoning-parser minimax_m3 --tool-call-parser minimax_m3 --enable-auto-tool-choice
     --override-generation-config "{\"max_new_tokens\": $DEFAULT_MAX_TOKENS}"
   )

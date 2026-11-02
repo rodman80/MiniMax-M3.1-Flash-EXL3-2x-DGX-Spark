@@ -55,7 +55,20 @@ Decisions behind the 2.15 bpw TP=2 lane, each with its evidence, so the next rec
   - dual-batch overlap (needs vLLM's V1 runner, which rejects DSpark);
   - pinning to the performance cores;
   - 256-row fat GEMM tiles;
-  - FP8 dense prefill: it is opt-in and off, because its error is about 10× bf16's.
+  - FP8 dense prefill: it is opt-in and off, because its error is about 10× bf16's;
+  - **the `b12x` MXFP8 linear backend.** `LINEAR_BACKEND_MXFP8` selects it and the engine does swap
+    `MarlinMxfp8LinearKernel` for `B12xMxfp8LinearKernel` (b12x is this engine's SM12x-native family and
+    reports `is_supported()` true on GB10). A/B/A over two Sparks with the DSpark drafter, which is the
+    drafter that instantiates the MXFP8 linears: against the mean of two marlin runs, b12x gave c=1 prose
+    −7.4%, c=1 code +2.4%, c=4 prose +4.8%, c=4 code +2.8%, prefill 8K −0.5%, prefill 16K −4.0%, against a
+    2.8-4.4% run-to-run spread on the identical config. No win, and the two largest movements are both
+    losses. marlin stays the default.
+- **A kernel-backend knob can be inert, so verify the kernel line before timing it.** `linear_backend_per_quant`
+  covers the MXFP8 projections, and with `SPEC_METHOD=dflash` those projections are never built (the DFlash2
+  draft is bf16): the boot log loses the `Using …Mxfp8LinearKernel` line entirely, and the flag reaches the
+  config while changing nothing. An A/B/A run that way came out flat to ±5%, which measured boot noise, not
+  the backends. Read the kernel-selection line in the rank log first; `bench check` passes either way and
+  proves nothing about which kernel ran.
 
 ## Fabric
 
