@@ -60,9 +60,11 @@ Decisions behind the 2.15 bpw TP=2 lane, each with its evidence, so the next rec
     `MarlinMxfp8LinearKernel` for `B12xMxfp8LinearKernel` (b12x is this engine's SM12x-native family and
     reports `is_supported()` true on GB10). A/B/A over two Sparks with the DSpark drafter, which is the
     drafter that instantiates the MXFP8 linears: against the mean of two marlin runs, b12x gave c=1 prose
-    −7.4%, c=1 code +2.4%, c=4 prose +4.8%, c=4 code +2.8%, prefill 8K −0.5%, prefill 16K −4.0%, against a
-    2.8-4.4% run-to-run spread on the identical config. No win, and the two largest movements are both
-    losses. marlin stays the default.
+    −7.4%, c=1 code +2.4%, c=4 prose +4.8%, c=4 code +2.8%, prefill 8K −0.5%, prefill 16K −4.0%. Judge each
+    cell against its own run-to-run spread, which is not uniform: the two identical marlin boots repeated
+    prefill to 0.4-0.6% and decode to 2.8-4.2%. So prefill 16K is a real loss, c=1 prose is a probable one,
+    prefill 8K is neutral, and the three decode gains all sit inside their cells' noise - they are not
+    measured. Nothing showed a win and one cell showed a loss, so marlin stays the default.
 - **A kernel-backend knob can be inert, so verify the kernel line before timing it.** `linear_backend_per_quant`
   covers the MXFP8 projections, and with `SPEC_METHOD=dflash` those projections are never built (the DFlash2
   draft is bf16): the boot log loses the `Using …Mxfp8LinearKernel` line entirely, and the flag reaches the
@@ -99,6 +101,10 @@ Decisions behind the 2.15 bpw TP=2 lane, each with its evidence, so the next rec
 - **Spec acceptance is the health signal.** `bench spec` reports accepted draft tokens per verify step; each step
   emits one more token from the target. A value of 0 means the draft is rejected, not that the model is slow.
   Healthy at k=3: about 0.9 on prose and 1.7 on code.
+- **Repeat the control, and size each cell against its own spread.** Across boots on one identical config,
+  prefill repeats to 0.4-0.6% while decode carries 2.8-4.2%. A single A/B can therefore prove a prefill change
+  and cannot prove a small decode change: an A/B/A that looked "flat to ±5%" once had measured only boot noise.
+  Never claim a decode delta under about 5% without a second control boot.
 - **Greedy output is not reproducible on this stack.** Near-ties in sparse-attention block selection flip early
   tokens. The quality gate is teacher-forced NLL with a 10% tolerance. Its short passages are hypersensitive: one
   passage flips between about 0% and 6.88% from run to run.
