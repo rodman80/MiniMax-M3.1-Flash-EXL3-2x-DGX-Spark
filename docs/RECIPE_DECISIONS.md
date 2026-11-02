@@ -42,6 +42,21 @@ Decisions behind the 2.15 bpw TP=2 lane, each with its evidence, so the next rec
 - **Prefill chunks of 16K** are about 8% faster than 8K on 8-16K prompts. The cost: running decode streams stall
   for one chunk step (~11 s) while a long prompt prefills. 32K chunks were rejected: most of their gain on the
   benchmark prompt came from absorbing its 1.3K tail chunk, and the stall doubles.
+- **Chunk sizes above 16K re-tested here and rejected again, with the tail effect measured.** 24576 and 32768 both
+  came in at +6.5% on the harness's ~17.7K-token prompt (1626.7 and 1624.9 tok/s against two control boots at
+  1527.5 and 1498.3, repeats agreeing to 0.1-0.5%) — and both fell apart on real long context: at 105K tokens,
+  711.7 against 773.6 (−8.0%); at 140K, 479.0 against 577.1 (−17.0%). The short-prompt gain is the 1.3K tail chunk
+  disappearing, exactly the dilution the one-pair rejection blamed, so any chunk-size claim must be made at lengths
+  where the tail is a rounding error. 16384 stays.
+- **Long-context prefill is where the remaining headroom is, and it is steep.** On this pair, cold prefill throughput
+  falls 1491.0 → 773.6 → 577.1 tok/s across 52K → 105K → 140K tokens (TTFT 35.2 → 135.6 → 242.4 s), with chunking at
+  the qualified 16384. That is a 2.6× loss over a 2.7× growth in prompt length, so it is the prefix scan, not the
+  GEMM size, that sets the rate. The published fixes for exactly this (indexer decode context parallelism, the
+  `QMUL4` NVFP4 indexer kernels) are gated to sm_100-class parts and to four ranks, so neither is reachable at
+  TP=2 on GB10 — worth knowing before spending more boots on prefill knobs aimed at short prompts.
+- **`FAT_PREFILL_TOKENS` 512 and 2048 are both a wash** against the qualified 1024 (16K prompts: 1535.4 and 1500.2
+  against controls at 1527.5 and 1498.3, inside the boot drift). The fat-tier threshold knobs are already at their
+  optimum on this pack.
 - **In prefill, every routed expert takes the grouped fat GEMM** (`FAT_THRESHOLD_PREFILL=0`). In real routing, many
   experts get only a few rows; on the fat tier they fill otherwise idle SMs, at about a third of their mixed-K
   kernel cost.
