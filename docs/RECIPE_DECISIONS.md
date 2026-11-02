@@ -82,6 +82,17 @@ Decisions behind the 2.15 bpw TP=2 lane, each with its evidence, so the next rec
   clients use the LAN address.
 - **Node-to-node ssh over the cable** is used for the weight and image fan-out. `doctor` checks it, and the
   controller falls back to the management LAN with a warning.
+- **MTU 9000 on the rails was measured and changed nothing.** Both rails went 1500 → 9000 and the RDMA
+  `active_mtu` negotiated 1024 → 4096 (the port maximum), with DF-set jumbo pings clean on both cable functions.
+  Serving: prefill +0.0% at 8K and +0.4% at 16K against a same-boot repeat spread of 0.6-1.3% (prefill is the
+  precise instrument on this pair); decode moved between −1.0% and +4.8%, inside its 2.8-4.2% boot spread; boot
+  time 104.9 → 101.7 s. The cable fan-out (7.06 GiB through `dd | ssh`, one stream) ran 288 and 292 MiB/s at
+  9000 against 316 and 294 at 1500 — that path is single-stream TCP-bound, not MTU-bound. So the qualified
+  1500 stays. The wider reading is the useful part: at TP=2 on this pair the link is not what limits prefill
+  either, so link-level tuning is the wrong place to look for prefill gains.
+- **Never change a rail's MTU under a running rank.** NCCL negotiates `active_mtu` at init; moving the netdev
+  MTU mid-session leaves the ranks in a state worth not trusting. Stop the serve, change both nodes, restart,
+  and re-run a health probe. Change the worker over the management LAN, not over the rail being changed.
 
 ## Operations
 
