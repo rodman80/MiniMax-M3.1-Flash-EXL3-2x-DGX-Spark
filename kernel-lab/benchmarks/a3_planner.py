@@ -52,12 +52,18 @@ def main() -> int:
     torch.manual_seed(0)
     orig = ref.plan_prefill_slices_fast
     max_pages = ref.staging_max_pages(KVH)
+    # nb is the PHYSICAL pool size (9,042 pages per rank per layer at KVB=20 GB and 60
+    # layers), not ceil(seq/128). The reference planner's cost scales with it.
+    pool_pages = int(os.environ.get("LAB_POOL_PAGES", "9042"))
     rows = []
     for name, lens, prefixes in SHAPES:
         total_q = sum(lens)
         seq_max = max(p + l for p, l in zip(prefixes, lens))
         nblk = (seq_max + 127) // 128
-        pool = q4pool.make_q4_pool(nblk, KVH, seed=3)
+        if nblk > pool_pages:
+            print(f"skipping {name}: needs {nblk} pages > pool {pool_pages}", flush=True)
+            continue
+        pool = q4pool.make_q4_pool(pool_pages, KVH, seed=3)
         bt = torch.arange(nblk, dtype=torch.int32, device=DEV)[None, :].repeat(
             max(len(lens), 8), 1).contiguous()
         q = (torch.randn(total_q, H, D, device=DEV) * 0.5).bfloat16()
@@ -110,7 +116,7 @@ def main() -> int:
             e = rel_err(out_fast, out_ref)
             rows.append({
                 "shape": name, "family": family, "rows": total_q, "prefix": max(prefixes),
-                "nb": nblk, "union_T8": u8, "n_slices": len(plan_ref),
+                "nb": pool_pages, "union_T8": u8, "n_slices": len(plan_ref),
                 "plan_identical": same,
                 "plan_ref_us": t_ref["median_us"], "plan_fast_us": t_fast["median_us"],
                 "plan_speedup": round(t_ref["median_us"] / max(t_fast["median_us"], 1e-3), 2),
@@ -126,7 +132,8 @@ def main() -> int:
         torch.cuda.empty_cache()
 
     path = write_result("a3_planner", {"env": env_record(),
-                                       "staging_cap_pages": max_pages, "rows": rows})
+                                       "staging_cap_pages": max_pages,
+                                       "pool_pages": pool_pages, "rows": rows})
     emit({"rows": rows})
     print(f"\nwrote {path}")
     return 0

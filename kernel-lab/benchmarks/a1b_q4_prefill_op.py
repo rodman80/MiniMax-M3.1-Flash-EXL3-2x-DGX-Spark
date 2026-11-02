@@ -40,10 +40,11 @@ H, KVH, D, TOPK = 32, 2, 128, 16
 SCALE = D ** -0.5
 SHAPES = [
     ("8k_first_chunk", [8192], [0]),
-    ("8k_second_chunk", [8192], [8192]),
     ("16k_chunk", [16384], [0]),
+    ("16k_at_16k", [16384], [16384]),
     ("16k_at_48k", [16384], [49152]),
-    ("64k_at_192k", [16384], [196608]),
+    ("16k_at_192k", [16384], [196608]),
+    ("4k_6req_at_48k", [4096] * 6, [49152] * 6),
 ]
 FAMILIES = ["real_like", "drift", "uniform"]
 
@@ -57,14 +58,23 @@ def main() -> int:
     torch.manual_seed(0)
     wrapped = _make_prefill_wrapper(sa.minimax_m3_sparse_attn)
     max_pages = ref.staging_max_pages(KVH)
+    # The planner iterates the PHYSICAL pool, not the logical block count. With
+    # KVB=20 GB per rank and 60 layers, one layer's q4 container is 9,042 pages; the
+    # reference planner's [rows, nb] int64 term is sized by that, not by the prompt
+    # length. Using ceil(seq/128) here understated it by up to 70x in Phase 2.
+    pool_pages = int(os.environ.get("LAB_POOL_PAGES", "9042"))
     print(f"staging cap: {max_pages} pages of {ref.q4_pool_page_bytes(KVH)} B "
-          f"({max_pages * ref.q4_pool_page_bytes(KVH) / 2**20:.0f} MiB)", flush=True)
+          f"({max_pages * ref.q4_pool_page_bytes(KVH) / 2**20:.0f} MiB); "
+          f"pool pages per layer nb={pool_pages}", flush=True)
     rows = []
     for name, lens, prefixes in SHAPES:
         total_q = sum(lens)
         seq_max = max(p + l for p, l in zip(prefixes, lens))
         nblk = (seq_max + 127) // 128
-        pool = q4_pool(nblk)
+        if nblk > pool_pages:
+            print(f"skipping {name}: needs {nblk} pages > pool {pool_pages}", flush=True)
+            continue
+        pool = q4_pool(pool_pages)
         bt = torch.arange(nblk, dtype=torch.int32, device=DEV)[None, :].repeat(
             max(len(lens), 8), 1).contiguous()
         q = (torch.randn(total_q, H, D, device=DEV) * 0.5).bfloat16()
@@ -129,6 +139,7 @@ def main() -> int:
             staged_bytes = sum(int(s["n"]) for s in slices) * ref.staging_page_bytes(KVH)
             rows.append({
                 "shape": name, "family": family, "rows": total_q, "prefix": max(prefixes),
+                "nb": pool_pages,
                 "n_slices": len(slices),
                 "slice_rows": [int(s["q"][1] - s["q"][0]) for s in slices],
                 "slice_pages": [int(s["n"]) for s in slices],

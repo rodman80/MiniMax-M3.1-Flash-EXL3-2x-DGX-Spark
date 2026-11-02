@@ -386,6 +386,20 @@ cmd_print_serve() {
   local guard_line
   guard_line="sudo -n setsid nohup bash $(printf '%q' "$TOOLS/memguard.sh") watch $(printf '%q' "$CONTAINER") $(printf '%q' "$BASE_DIR/run/guard.log") $(printf '%q' "$BASE_DIR/run/stage") $((GUARD_START_MIB * 1024)) $((GUARD_MIB * 1024)) $((GUARD_SWAP_MAX_MIB * 1024)) $DROP_CACHES_EVERY_S $DROP_CACHES_LOADING >/dev/null 2>&1 </dev/null &"
 
+  # Phase 3 experimental lane. Fail closed on a typo: a malformed value must never
+  # silently select a path the operator did not ask for.
+  local _m31_wide_env=() _m31_a3_env=()
+  case "${M31_EXPERIMENT_B3:-1}" in
+    1|true|on|yes) _m31_wide_env=(-e EXL3_MOE_COOP_WIDE=1) ;;
+    0|false|off|no) ;;   # unset: exllamav3's own auto heuristic
+    *) die "M31_EXPERIMENT_B3='${M31_EXPERIMENT_B3}' is not 0/1" ;;
+  esac
+  case "${M31_EXPERIMENT_A3:-0}" in
+    1|true|on|yes) _m31_a3_env=(-e VLLM_EXL3_Q4KV_PLANNER_V2=1) ;;
+    0|false|off|no) ;;   # the reference planner, byte for byte
+    *) die "M31_EXPERIMENT_A3='${M31_EXPERIMENT_A3}' is not 0/1" ;;
+  esac
+
   env=(
     -e "VLLM_EXL3_MODEL_DIR=/models/$MODEL_NAME"
     -e "VLLM_HOST_IP=$ip"
@@ -403,9 +417,12 @@ cmd_print_serve() {
     -e "VLLM_EXL3_MOE_TEMP_ROWS=$MOE_TEMP_ROWS" -e VLLM_EXL3_PERIODIC_TRIM_S=30
     -e "VLLM_EXL3_FAT_THRESHOLD=$FAT_THRESHOLD" -e "VLLM_EXL3_FAT_THRESHOLD_PREFILL=$FAT_THRESHOLD_PREFILL" -e "VLLM_EXL3_FAT_PREFILL_TOKENS=$FAT_PREFILL_TOKENS"
     -e VLLM_EXL3_MADV_AFTER_H2D=0
-    # Wide (128-column, 4-way k-split) coop tile on both MoE decode stages: 8-15% faster coop
-    # launches on this pack's per-rank shapes (exllamav3 picks narrow for K=1536 by default).
-    -e EXL3_MOE_COOP_WIDE=1
+    # The wide (128-column, 4-way k-split) coop tile on both MoE decode stages is the
+    # shipped setting since v0.1.0; M31_EXPERIMENT_B3=0 unsets it and lets exllamav3 pick
+    # its own auto heuristic (narrow for the K=1536 down stage). M31_EXPERIMENT_A3=1
+    # selects the O(queries x routes) q4 slice planner (patches/0020). Both are read by
+    # the serve env, so they are part of the weight-snapshot key automatically.
+    "${_m31_wide_env[@]+"${_m31_wide_env[@]}"}" "${_m31_a3_env[@]+"${_m31_a3_env[@]}"}"
     -e "VLLM_EXL3_WEIGHT_SNAPSHOT=$WEIGHT_SNAPSHOT" -e VLLM_EXL3_WEIGHT_SNAPSHOT_DIR=/cache/weight-snapshots
     -e VLLM_TRITON_JIT_WARMUP_NUM_THREADS=1 -e TORCHINDUCTOR_COMPILE_THREADS=1
     -e TRITON_CACHE_DIR=/cache/triton -e CUDA_CACHE_PATH=/cache/nv-compute
